@@ -306,7 +306,6 @@
             <button class="nav-btn back" onclick="navigateTo('mainScreen')">⬅️ الرئيسية</button>
         </div>
 
-        <!-- قسم متجر إطارات الصور الأفقي الجديد الـ 3D -->
         <div class="card" style="text-align:right; margin-bottom:12px;">
             <h4 style="margin:0 0 6px 0;color:#c084fc;font-size:13px">🖼️ متجر إطارات الصور الشخصية (3D)</h4>
             <p style="font-size:10px;color:#94a3b8;margin-bottom:8px">اسحب يميناً ويساراً لاستعراض الإطارات الـ 12 الفاخرة (السعر: 250 نقطة للإطار):</p>
@@ -768,7 +767,7 @@
 
 <script>
     let currentEmail='',currentUserKey='',rtdb=null,auth=null;
-    let userData={points:0,gems:0,agentBag:0,lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,customId:'',name:'',avatar:'',bio:'',hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isAgent:false,isBanned:false,whatsapp:'',activeFrame:''};
+    let userData={points:0,gems:0,agentBag:0,lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,customId:'',name:'',avatar:'',bio:'',hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isAgent:false,isBanned:false,whatsapp:'',activeFrame:'',weeklyGiftsSent:0,weeklyWheelPoints:0,weeklyAgentPoints:0};
     let base64Image='',activeChatFriendKey='',activeChatFriendName='',visitedProfileTargetKey='',timerInterval=null;
     let isolatedActiveRoomId='',currentRoomOccupantsCount=0,activeRoomCreatorKey='',globalAppSettings={withdrawLocked:false,dailyCounterLocked:false};
     let newRoomAvatarBase64='',newRoomBgBase64='',agentResidenceFrontBase64='',agentResidenceBackBase64='',agentNationalFrontBase64='',agentNationalBackBase64='';
@@ -927,7 +926,6 @@
         saveToDB().then(()=>{updateUI();alert(`🎉 مبروك! تم شراء العداد وأصبح إجمالي إنتاجك (${userData.activeCounterVal.toLocaleString()} نقطة يومياً).`);});
     }
 
-    /* دالة شراء إطار الصور مع فحص الرصيد بدقة وتأكيد الشراء */
     function buyPhotoFrame(frameName, price){
         if((userData.points||0) < price){
             return alert(`❌ عذراً، رصيدك غير كافي (${userData.points} نقطة). سعر ${frameName} هو ${price} نقطة!`);
