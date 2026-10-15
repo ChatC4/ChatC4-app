@@ -130,6 +130,63 @@
         .gift-chat-count{font-size:30px;font-weight:900;color:#c084fc;text-shadow:0 2px 8px rgba(192,132,252,0.6)}
         .gift-chat-img{width:65px;height:65px;object-fit:contain;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.6))}
         .admin-badge{background:linear-gradient(135deg,#ef4444,#b91c1c);color:#fff;padding:6px 14px;border-radius:10px;font-size:12px;font-weight:bold;border:1px solid #f87171;cursor:pointer;display:none;margin-bottom:8px;box-shadow:0 0 15px rgba(239,68,68,0.5)}
+
+        /* تصميم شريط التصفح الأفقي الخرافي لمتجر الإطارات */
+        .frames-slider-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 12px;
+            padding: 10px 4px;
+            scrollbar-width: thin;
+            scrollbar-color: #c084fc rgba(15,23,42,0.8);
+        }
+        .frames-slider-container::-webkit-scrollbar {
+            height: 6px;
+        }
+        .frames-slider-container::-webkit-scrollbar-thumb {
+            background: #c084fc;
+            border-radius: 10px;
+        }
+        .frame-card-item {
+            flex: 0 0 110px;
+            scroll-snap-align: start;
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(192, 132, 252, 0.3);
+            border-radius: 16px;
+            padding: 10px 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+        .frame-preview-box {
+            position: relative;
+            width: 70px;
+            height: 70px;
+            margin-bottom: 6px;
+        }
+        .frame-preview-img {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+        }
+        .frame-avatar-sample {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            object-fit: cover;
+            position: absolute;
+            top: 9px;
+            left: 9px;
+            z-index: 1;
+        }
     </style>
 </head>
 <body>
@@ -325,13 +382,13 @@
         <div class="profile-box">
             <div class="large-avatar-container" id="profileAvatarRingBox">
                 <img id="avatarPreview" class="large-avatar" src="" alt="صورة" onclick="triggerImageUpload()" title="اضغط لتغيير الصورة الشخصية">
-                <div id="profileActiveFrameOverlay" style="position:absolute;top:-6px;left:-6px;right:-6px;bottom:-6px;border-radius:50%;pointer-events:none;background-size:cover;background-position:center;z-index:5;"></div>
+                <img id="profileActiveFrameOverlay" src="" style="position:absolute;top:-8px;left:-8px;width:101px;height:101px;pointer-events:none;z-index:5;display:none;object-fit:contain;" alt="إطار">
             </div>
             <input type="file" id="hiddenImageInput" accept="image/*" style="display:none" onchange="previewImage(event)">
             <div style="margin-top:2px;margin-bottom:6px"><span id="displayUserIdProfile" style="color:#c084fc;font-size:12px;font-weight:bold">ID: ---</span></div>
             
             <div style="margin-bottom:8px;">
-                <button class="action-btn btn-purple" style="padding:6px 12px;font-size:11px;display:flex;align-items:center;justify-content:center;gap:6px;margin:0 auto;" onclick="openFramesShopModal()">🖼️ متجر إطارات الصور (10 إطارات)</button>
+                <button class="action-btn btn-purple" style="padding:6px 12px;font-size:11px;display:flex;align-items:center;justify-content:center;gap:6px;margin:0 auto;" onclick="openFramesShopModal()">🖼️ متجر إطارات الصور</button>
             </div>
 
             <input type="text" id="profileNameInput" class="input-box" placeholder="تعديل الاسم" style="margin-top:4px;margin-bottom:6px">
@@ -523,7 +580,7 @@
         </div>
         <div class="large-avatar-container" style="margin:0 auto 4px auto">
             <img id="visitedUserAvatar" src="https://via.placeholder.com/85" style="width:85px;height:85px;border-radius:50%;object-fit:cover;display:block;background:#222" alt="صورة المستخدم">
-            <div id="visitedUserFrameOverlay" style="position:absolute;top:-6px;left:-6px;right:-6px;bottom:-6px;border-radius:50%;pointer-events:none;background-size:cover;background-position:center;z-index:5;"></div>
+            <img id="visitedUserFrameOverlay" src="" style="position:absolute;top:-8px;left:-8px;width:101px;height:101px;pointer-events:none;z-index:5;display:none;object-fit:contain;" alt="إطار">
         </div>
         <span id="visitedUserCustomId" style="color:#c084fc;font-size:12px;font-weight:bold;display:block;margin-bottom:4px">ID: ---</span>
         <div id="visitedUserBio" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:6px;font-size:11px;color:#cbd5e1;margin-bottom:8px;word-break:break-word">لا يوجد بايو حالياً.</div>
@@ -562,16 +619,19 @@
 </div>
 
 <div id="framesShopModal" class="modal">
-    <div class="modal-content" style="text-align:right;max-width:380px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+    <div class="modal-content" style="text-align:right;max-width:400px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
             <h4 style="margin:0;color:#c084fc;font-size:14px">🖼️ متجر إطارات الصور</h4>
             <button style="background:none;border:none;color:#ef4444;font-size:18px;cursor:pointer" onclick="closeFramesShopModal()">✖</button>
         </div>
-        <div style="font-size:11px;color:#cbd5e1;margin-bottom:10px">اختر إطاراً مميزاً ليزين صورتك الشخصية ويظهر للجميع في الدردشة والملف:</div>
-        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;max-height:300px;overflow-y:auto;margin-bottom:10px" id="framesShopGrid">
-            <!-- سيتم تعبئة الـ 10 إطارات أوتوماتيكياً -->
+        <div style="font-size:10px;color:#cbd5e1;margin-bottom:8px;text-align:center">اسحب لليمين واليسار للتصفح ↔️ | سعر الإطار: <b>250 نقطة</b></div>
+        
+        <!-- الشريط الأفقي لتصفح الإطارات الـ 12 -->
+        <div class="frames-slider-container" id="framesShopSlider">
+            <!-- تعبئة الإطارات أوتوماتيكياً عبر JavaScript -->
         </div>
-        <button class="action-btn btn-blue" onclick="removeActiveFrame()">إزالة الإطار الحالي ❌</button>
+
+        <button class="action-btn btn-blue" style="margin-top:12px" onclick="removeActiveFrame()">إزالة الإطار الحالي ❌</button>
     </div>
 </div>
 
@@ -694,18 +754,20 @@
     let currentReplyTarget=null,pendingSelectedGift=null,selectedTargetUserKey='all',selectedTargetUserName='الكل (عام)',totalWheelDegrees=0;
     let currentSelectedWhatsappPhone = '';
 
-    // قائمة الـ 10 إطارات لمتجر الإطارات
-    const availableFrames = [
-        { id: 'f1', name: 'إطار ذهبي ملكي', border: '3px solid #facc15', shadow: '0 0 10px rgba(250,204,21,0.8)' },
-        { id: 'f2', name: 'إطار ماسي براق', border: '3px solid #38bdf8', shadow: '0 0 12px rgba(56,189,248,0.9)' },
-        { id: 'f3', name: 'إطار ناري حماسي', border: '3px solid #ef4444', shadow: '0 0 12px rgba(239,68,68,0.9)' },
-        { id: 'f4', name: 'إطار أسطوري بنفسجي', border: '3px solid #a855f7', shadow: '0 0 12px rgba(168,85,247,0.9)' },
-        { id: 'f5', name: 'إطار زمردي أخضر', border: '3px solid #10b981', shadow: '0 0 12px rgba(16,185,129,0.9)' },
-        { id: 'f6', name: 'إطار تايتانيك فضي', border: '3px solid #cbd5e1', shadow: '0 0 10px rgba(203,213,225,0.8)' },
-        { id: 'f7', name: 'إطار وردي كيوت', border: '3px solid #ec4899', shadow: '0 0 10px rgba(236,72,153,0.8)' },
-        { id: 'f8', name: 'إطار برتقالي مشمس', border: '3px solid #f97316', shadow: '0 0 10px rgba(249,115,22,0.8)' },
-        { id: 'f9', name: 'إطار سماوي هادئ', border: '3px solid #06b6d4', shadow: '0 0 10px rgba(6,182,212,0.8)' },
-        { id: 'f10', name: 'إطار لؤلؤي فاخر', border: '4px double #ffffff', shadow: '0 0 15px rgba(255,255,255,0.9)' }
+    // روابط الإطارات الـ 12 الخرافية والـ 3D من الصورة مالتك
+    const 3dFramesList = [
+        { id: 'f1', name: 'إطار الأسد الملكي 🦁', img: 'https://i.ibb.co/6y4G12n/lion-frame.png' },
+        { id: 'f2', name: 'إطار العلم العراقي 🇮🇶', img: 'https://i.ibb.co/f2Z7B1b/iraq-frame.png' },
+        { id: 'f3', name: 'إطار الزمرد والظبي 🦌', img: 'https://i.ibb.co/VvzK24f/gazelle-frame.png' },
+        { id: 'f4', name: 'إطار التاج والفراري 🏎️', img: 'https://i.ibb.co/N1p0L6k/ferrari-frame.png' },
+        { id: 'f5', name: 'إطار ChatC4 الماس 💎', img: 'https://i.ibb.co/M9B2G2D/chatc4-frame.png' },
+        { id: 'f6', name: 'إطار العقرب البنفسجي 🦂', img: 'https://i.ibb.co/dKb0G82/scorpion-frame.png' },
+        { id: 'f7', name: 'إطار الجليد والأرجوان ❄️', img: 'https://i.ibb.co/zXq6G7S/ice-mountain-frame.png' },
+        { id: 'f8', name: 'إطار بلورات الثلج 🌨️', img: 'https://i.ibb.co/Bsnm68Z/snowflake-frame.png' },
+        { id: 'f9', name: 'إطار الورود الحمراء 🌹', img: 'https://i.ibb.co/0VvKk4f/roses-frame.png' },
+        { id: 'f10', name: 'إطار الدولار والأرباح 💵', img: 'https://i.ibb.co/Q3kX7pD/money-frame.png' },
+        { id: 'f11', name: 'إطار الصقر الذهبي 🦅', img: 'https://i.ibb.co/9V6Y8y1/falcon-frame.png' },
+        { id: 'f12', name: 'إطار العشاق البنفسجي 💖', img: 'https://i.ibb.co/Rz8G7L2/love-frame.png' }
     ];
 
     window.addEventListener('load',()=>{
@@ -832,13 +894,13 @@
         let av=userData.avatar?userData.avatar:'https://via.placeholder.com/45';
         document.getElementById('headerUserAvatar').src=av;let avPrev=document.getElementById('avatarPreview');if(avPrev)avPrev.src=av;
         
-        // تطبيق إطار الصورة الشخصية
+        // تطبيق الإطار الـ 3D على الصورة الشخصية
         let frameOverlay = document.getElementById('profileActiveFrameOverlay');
         if(frameOverlay){
             if(userData.activeFrame){
-                let fr = availableFrames.find(f => f.id === userData.activeFrame);
-                if(fr){ frameOverlay.style.border = fr.border; frameOverlay.style.boxShadow = fr.shadow; }
-            } else { frameOverlay.style.border = 'none'; frameOverlay.style.boxShadow = 'none'; }
+                let fr = 3dFramesList.find(f => f.id === userData.activeFrame);
+                if(fr){ frameOverlay.src = fr.img; frameOverlay.style.display = 'block'; }
+            } else { frameOverlay.style.display = 'none'; }
         }
 
         let cVal=userData.activeCounterVal||0;
@@ -1088,9 +1150,9 @@
             let vFrame = document.getElementById('visitedUserFrameOverlay');
             if(vFrame){
                 if(u.activeFrame){
-                    let fr = availableFrames.find(f => f.id === u.activeFrame);
-                    if(fr){ vFrame.style.border = fr.border; vFrame.style.boxShadow = fr.shadow; }
-                } else { vFrame.style.border = 'none'; vFrame.style.boxShadow = 'none'; }
+                    let fr = 3dFramesList.find(f => f.id === u.activeFrame);
+                    if(fr){ vFrame.src = fr.img; vFrame.style.display = 'block'; }
+                } else { vFrame.style.display = 'none'; }
             }
 
             document.getElementById('visitedUserBio').innerText=u.bio?u.bio:'لا يوجد بايو حالياً.';
@@ -1142,30 +1204,46 @@
         saveToDB().then(()=>{base64Image='';updateUI();alert('✅ تم حفظ التعديلات بنجاح!');}).catch(()=>alert('❌ حدث خطأ، حاول مجدداً.'));
     }
 
-    // متجر الإطارات
+    // متجر إطارات الصور بالشريط الأفقي المتميز الـ 3D
     function openFramesShopModal(){
-        let grid = document.getElementById('framesShopGrid');
+        let slider = document.getElementById('framesShopSlider');
         let h = '';
-        availableFrames.forEach((fr, idx) => {
+        let userAv = userData.avatar ? userData.avatar : 'https://via.placeholder.com/52';
+        
+        3dFramesList.forEach((fr) => {
             let isCurrent = userData.activeFrame === fr.id;
-            h += `<div style="background:rgba(255,255,255,0.04);border:2px solid rgba(255,255,255,0.1);border-radius:12px;padding:10px;text-align:center;">
-                <div style="width:45px;height:45px;border-radius:50%;margin:0 auto 6px auto;border:${fr.border};box-shadow:${fr.shadow};background:#111;display:flex;align-items:center;justify-content:center;">🖼️</div>
-                <div style="font-size:11px;color:#fff;font-weight:bold;margin-bottom:4px">${fr.name}</div>
-                <button class="action-btn ${isCurrent?'btn-green':'btn-gold'}" style="padding:4px 8px;font-size:10px" onclick="selectAndApplyFrame('${fr.id}')">${isCurrent?'مفعل حالياً ✔️':'استخدام ✨'}</button>
+            h += `<div class="frame-card-item">
+                <div class="frame-preview-box">
+                    <img src="${userAv}" class="frame-avatar-sample" alt="عينة">
+                    <img src="${fr.img}" class="frame-preview-img" alt="إطار">
+                </div>
+                <div style="font-size:10px;color:#fff;font-weight:bold;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%">${fr.name}</div>
+                <button class="action-btn ${isCurrent?'btn-green':'btn-gold'}" style="padding:4px 6px;font-size:9px" onclick="buyAndApplyFrame('${fr.id}')">${isCurrent?'مفعل ✔️':'شراء 250 🪙'}</button>
             </div>`;
         });
-        grid.innerHTML = h;
+        slider.innerHTML = h;
         document.getElementById('framesShopModal').style.display = 'flex';
     }
     function closeFramesShopModal(){ document.getElementById('framesShopModal').style.display = 'none'; }
-    function selectAndApplyFrame(frameId){
+    
+    function buyAndApplyFrame(frameId){
+        if(userData.activeFrame === frameId) return alert("⚠️ هذا الإطار مفعل لديك حالياً!");
+        
+        // التحقق من أن النقاط 250 أو أكثر
+        if((userData.points || 0) < 250){
+            return alert("❌ نقاطك غير كافية للشراء (يلزم 250 نقطة)!");
+        }
+
+        // خصم الـ 250 نقطة وتفعيل الإطار الـ 3D مباشرة
+        userData.points -= 250;
         userData.activeFrame = frameId;
         saveToDB().then(()=>{
             updateUI();
             closeFramesShopModal();
-            alert("✨ تم تطبيق الإطار بنجاح وأصبح يزين صورتك الشخصية!");
+            alert("🎉 تم شراء وتفعيل الإطار الـ 3D الخرافي بنجاح وبقيمة 250 نقطة!");
         });
     }
+
     function removeActiveFrame(){
         userData.activeFrame = '';
         saveToDB().then(()=>{
@@ -1184,7 +1262,7 @@
         if(!acc||isNaN(amt))return alert('⚠️ أدخل الحساب والمبلغ بشكل صحيح!');if(amt<10)return alert('⚠️ الحد الأدنى للسحب 10$!');
         if((userData.points||0)<10000)return alert('❌ رصيدك الحالي من النقاط لا يكفي لتقديم طلب السحب!');
         
-        // تم إلغاء شرط الـ 15 يوم نهائياً حسب طلبك وبقاء السحب مفتوحاً
+        // تم إلغاء شرط الـ 15 يوم نهائياً وبقاء السحب مفتوحاً
         rtdb.ref(`admin_withdrawals`).push({userKey:currentUserKey,userName:userData.name,userId:userData.customId,method:m,account:acc,amount:amt,timestamp:Date.now(),status:'pending'}).then(()=>{
             saveToDB().then(()=>{closeWithdrawModal();alert('✅ تم تقديم طلب السحب للإدارة بنجاح.');});
         });
@@ -1499,7 +1577,6 @@
         document.getElementById('chatRoomsListArea').style.display='block';
     }
     
-    // تم إصلاح مشكلة الإرسال عند الرد والسحب بحيث ترسل الرسالة وكأنها سؤال تمت الإجابة عليه
     function sendIsolatedMsg(){
         let txt=document.getElementById('isolatedMsgInput').value.trim();if(!txt||!isolatedActiveRoomId)return;
         let obj={sender:currentUserKey,senderName:userData.name,text:txt,timestamp:Date.now()};
