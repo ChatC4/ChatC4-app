@@ -130,42 +130,6 @@
         .gift-chat-count{font-size:30px;font-weight:900;color:#c084fc;text-shadow:0 2px 8px rgba(192,132,252,0.6)}
         .gift-chat-img{width:65px;height:65px;object-fit:contain;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.6))}
         .admin-badge{background:linear-gradient(135deg,#ef4444,#b91c1c);color:#fff;padding:6px 14px;border-radius:10px;font-size:12px;font-weight:bold;border:1px solid #f87171;cursor:pointer;display:none;margin-bottom:8px;box-shadow:0 0 15px rgba(239,68,68,0.5)}
-
-        /* تنسيق متجر إطارات الصور الأفقي الجديد */
-        .frames-horizontal-scroll {
-            display: flex;
-            overflow-x: auto;
-            gap: 12px;
-            padding: 10px 4px;
-            margin-bottom: 12px;
-            scroll-behavior: smooth;
-        }
-        .frames-horizontal-scroll::-webkit-scrollbar {
-            height: 6px;
-        }
-        .frames-horizontal-scroll::-webkit-scrollbar-thumb {
-            background: #9333ea;
-            border-radius: 10px;
-        }
-        .frame-item-card {
-            min-width: 95px;
-            background: rgba(15, 23, 42, 0.85);
-            border: 1px solid rgba(192, 132, 252, 0.3);
-            border-radius: 14px;
-            padding: 8px;
-            text-align: center;
-            flex-shrink: 0;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-        }
-        .frame-preview-img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin: 0 auto 6px auto;
-            border: 2px solid #c084fc;
-        }
     </style>
 </head>
 <body>
@@ -302,78 +266,9 @@
 
     <div id="shopScreen" class="screen-page">
         <div class="top-nav">
-            <h3 style="margin:0;color:#c084fc;font-size:15px">🛒 متجر العدادات والإطارات</h3>
+            <h3 style="margin:0;color:#c084fc;font-size:15px">🛒 متجر العدادات</h3>
             <button class="nav-btn back" onclick="navigateTo('mainScreen')">⬅️ الرئيسية</button>
         </div>
-
-        <div class="card" style="text-align:right; margin-bottom:12px;">
-            <h4 style="margin:0 0 6px 0;color:#c084fc;font-size:13px">🖼️ متجر إطارات الصور الشخصية (3D)</h4>
-            <p style="font-size:10px;color:#94a3b8;margin-bottom:8px">اسحب يميناً ويساراً لاستعراض الإطارات الـ 12 الفاخرة (السعر: 250 نقطة للإطار):</p>
-            
-            <div class="frames-horizontal-scroll">
-                <div class="frame-item-card" onclick="buyPhotoFrame('إطار الذهب الملكي 🌟', 250)">
-                    <img src="https://cdn-icons-png.flaticon.com/512/3607/3607444.png" class="frame-preview-img" alt="إطار">
-                    <div style="font-size:10px;font-weight:bold;color:#fff;margin-bottom:2px">إطار ملكي</div>
-                    <div style="font-size:9px;color:#c084fc">250 🪙</div>
-                </div>
-                <div class="frame-item-card" onclick="buyPhotoFrame('إطار الألماس الفاخر 💎', 250)">
-                    <img src="https://cdn-icons-png.flaticon.com/512/931/931945.png" class="frame-preview-img" alt="إطار">
-                    <div style="font-size:10px;font-weight:bold;color:#fff;margin-bottom:2px">إطار ألماس</div>
-                    <div style="font-size:9px;color:#c084fc">250 🪙</div>
-                </div>
-                <div class="frame-item-card" onclick="buyPhotoFrame('إطار النار المشتعلة 🔥', 250)">
-                    <img src="https://cdn-icons-png.flaticon.com/512/785/785116.png" class="frame-preview-img" alt="إطار">
-                    <div style="font-size:10px;font-weight:bold;color:#fff;margin-bottom:2px">إطار ناري</div>
-                    <div style="font-size:9px;color:#c084fc">250 🪙</div>
-                </div>
-                <div class="frame-item-card" onclick="buyPhotoFrame('إطار البرق السريع ⚡', 250)">
-                    <img src="https://cdn-icons-png.flaticon.com/512/2165/2165007.png" class="frame-preview-img" alt="إطار">
-                    <div style="font-size:10px;font-weight:bold;color:#fff;margin-bottom:2px">إطار برق</div>
-                    <div style="font-size:9px;color:#c084fc">250 🪙</div>
-                </div>
-                <div class="frame-item-card" onclick="buyPhotoFrame('إطار النيون الأرجواني 💜', 250)">
-                    <img src="https://cdn-icons-png.flaticon.com/512/3076/3076986.png" class="frame-preview-img" alt="إطار">
-                    <div style="font-size:10px;font-weight:bold;color:#fff;margin-bottom:2px">إطار نيون</div>
-                    <div style="font-size:9px;color:#c084fc">250 🪙</div>
-                </div>
-                <div class="frame-item-card" onclick="buyPhotoFrame('إطار التاج الملوكي 👑', 250)">
-                    <img src="https://cdn-icons-png.flaticon.com/512/3607/3607504.png" class="frame-preview-img" alt="إطار">
-                    <div style="font-size:10px;font-weight:bold;color:#fff;margin-bottom:2px">إطار تاج</div>
-                    <div style="font-size:9px;color:#c084fc">250 🪙</div>
-                </div>
-                <div class="frame-item-card" onclick="buyPhotoFrame('إطار الأسد الشرس 🦁', 250)">
-                    <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="frame-preview-img" alt="إطار">
-                    <div style="font-size:10px;font-weight:bold;color:#fff;margin-bottom:2px">إطار أسد</div>
-                    <div style="font-size:9px;color:#c084fc">250 🪙</div>
-                </div>
-                <div class="frame-item-card" onclick="buyPhotoFrame('إطار الفضاء الخارجي 🌌', 250)">
-                    <img src="https://cdn-icons-png.flaticon.com/512/3212/3212608.png" class="frame-preview-img" alt="إطار">
-                    <div style="font-size:10px;font-weight:bold;color:#fff;margin-bottom:2px">إطار فضاء</div>
-                    <div style="font-size:9px;color:#c084fc">250 🪙</div>
-                </div>
-                <div class="frame-item-card" onclick="buyPhotoFrame('إطار الورد الجوري 🌹', 250)">
-                    <img src="https://cdn-icons-png.flaticon.com/512/766/766155.png" class="frame-preview-img" alt="إطار">
-                    <div style="font-size:10px;font-weight:bold;color:#fff;margin-bottom:2px">إطار ورود</div>
-                    <div style="font-size:9px;color:#c084fc">250 🪙</div>
-                </div>
-                <div class="frame-item-card" onclick="buyPhotoFrame('إطار الجيمرز واللاعبين 🎮', 250)">
-                    <img src="https://cdn-icons-png.flaticon.com/512/686/686589.png" class="frame-preview-img" alt="إطار">
-                    <div style="font-size:10px;font-weight:bold;color:#fff;margin-bottom:2px">إطار جيمر</div>
-                    <div style="font-size:9px;color:#c084fc">250 🪙</div>
-                </div>
-                <div class="frame-item-card" onclick="buyPhotoFrame('إطار النجوم المتلألئة ✨', 250)">
-                    <img src="https://cdn-icons-png.flaticon.com/512/616/616490.png" class="frame-preview-img" alt="إطار">
-                    <div style="font-size:10px;font-weight:bold;color:#fff;margin-bottom:2px">إطار نجوم</div>
-                    <div style="font-size:9px;color:#c084fc">250 🪙</div>
-                </div>
-                <div class="frame-item-card" onclick="buyPhotoFrame('إطار الأساطير الكبرى 🏆', 250)">
-                    <img src="https://cdn-icons-png.flaticon.com/512/3112/3112946.png" class="frame-preview-img" alt="إطار">
-                    <div style="font-size:10px;font-weight:bold;color:#fff;margin-bottom:2px">إطار أسطوري</div>
-                    <div style="font-size:9px;color:#c084fc">250 🪙</div>
-                </div>
-            </div>
-        </div>
-
         <div class="card" style="text-align:right;background:rgba(15,23,42,0.85);border:1px solid rgba(56,189,248,0.4);margin-bottom:12px;padding:12px">
             <h4 style="margin:0 0 6px 0;color:#38bdf8;font-size:13px">📥 طلب شراء عداد مخصص</h4>
             <p style="font-size:10px;color:#cbd5e1;margin-bottom:8px">أدخل رقم التحويل وتفاصيل العداد المطلوب وسيتم التحقق والشحن مباشرة:</p>
@@ -672,6 +567,7 @@
             <button class="gift-tab-btn" id="tabG4" onclick="switchGiftPane('p4')">👑 حصرية (16-20)</button>
         </div>
         
+        <!-- القسم الأول: الهدايا 1 إلى 5 (مع رسومات واضحة تماماً) -->
         <div id="pane1" class="gift-pane-content active">
             <div class="gift-card-box" id="g1" onclick="highlightGift('علم العراق 🇮🇶',100,'https://upload.wikimedia.org/wikipedia/commons/f/f6/Flag_of_Iraq.svg','g1')"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Flag_of_Iraq.svg" class="gift-icon-full" alt="علم"><div class="gift-price-num">100 🪙</div></div>
             <div class="gift-card-box" id="g2" onclick="highlightGift('وردة حمراء 🌹',25,'https://cdn-icons-png.flaticon.com/512/766/766155.png','g2')"><img src="https://cdn-icons-png.flaticon.com/512/766/766155.png" class="gift-icon-full" alt="وردة"><div class="gift-price-num">25 🪙</div></div>
@@ -680,6 +576,7 @@
             <div class="gift-card-box" id="g5" onclick="highlightGift('دراجة هوائية 🚲',15,'https://cdn-icons-png.flaticon.com/512/2972/2972185.png','g5')"><img src="https://cdn-icons-png.flaticon.com/512/2972/2972185.png" class="gift-icon-full" alt="دراجة"><div class="gift-price-num">15 🪙</div></div>
         </div>
 
+        <!-- القسم الثاني: الهدايا 6 إلى 10 (رسومات واضحة تماماً) -->
         <div id="pane2" class="gift-pane-content">
             <div class="gift-card-box" id="g6" onclick="highlightGift('قطة أليفة 🐱',15,'https://cdn-icons-png.flaticon.com/512/616/616430.png','g6')"><img src="https://cdn-icons-png.flaticon.com/512/616/616430.png" class="gift-icon-full" alt="قطة"><div class="gift-price-num">15 🪙</div></div>
             <div class="gift-card-box" id="g7" onclick="highlightGift('حلاوة ملونة 🍬',20,'https://cdn-icons-png.flaticon.com/512/3081/3081986.png','g7')"><img src="https://cdn-icons-png.flaticon.com/512/3081/3081986.png" class="gift-icon-full" alt="حلاوة"><div class="gift-price-num">20 🪙</div></div>
@@ -688,6 +585,7 @@
             <div class="gift-card-box" id="g10" onclick="highlightGift('تاج ملكي 👑',150,'https://cdn-icons-png.flaticon.com/512/3607/3607444.png','g10')"><img src="https://cdn-icons-png.flaticon.com/512/3607/3607444.png" class="gift-icon-full" alt="تاج"><div class="gift-price-num">150 🪙</div></div>
         </div>
 
+        <!-- القسم الثالث: الهدايا 11 إلى 15 (رسومات فاخرة وواضحة جداً) -->
         <div id="pane3" class="gift-pane-content">
             <div class="gift-card-box" id="g11" onclick="highlightGift('قيثارة موسيقية 🎸',200,'https://cdn-icons-png.flaticon.com/512/3004/3004758.png','g11')"><img src="https://cdn-icons-png.flaticon.com/512/3004/3004758.png" class="gift-icon-full" alt="قيثارة"><div class="gift-price-num">200 🪙</div></div>
             <div class="gift-card-box" id="g12" onclick="highlightGift('كعكة عيد ميلاد 🎂',300,'https://cdn-icons-png.flaticon.com/512/3132/3132693.png','g12')"><img src="https://cdn-icons-png.flaticon.com/512/3132/3132693.png" class="gift-icon-full" alt="كعكة"><div class="gift-price-num">300 🪙</div></div>
@@ -696,6 +594,7 @@
             <div class="gift-card-box" id="g15" onclick="highlightGift('دب قطبي 🧸',800,'https://cdn-icons-png.flaticon.com/512/3022/3022361.png','g15')"><img src="https://cdn-icons-png.flaticon.com/512/3022/3022361.png" class="gift-icon-full exclusive-gift-animated" alt="دب"><div class="gift-price-num">800 🪙</div></div>
         </div>
 
+        <!-- القسم الرابع: الهدايا 16 إلى 20 الحصرية والملوكية (برسومات بارزة وواضحة جداً) -->
         <div id="pane4" class="gift-pane-content">
             <div class="gift-card-box" id="g16" onclick="highlightGift('الأسد الملكي 🦁',1000,'https://cdn-icons-png.flaticon.com/512/616/616408.png','g16')"><img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="gift-icon-full exclusive-gift-animated" alt="أسد"><div class="gift-price-num">1000 🪙</div></div>
             <div class="gift-card-box" id="g17" onclick="highlightGift('سيارة فيراري 🏎️',1500,'https://cdn-icons-png.flaticon.com/512/741/741407.png','g17')"><img src="https://cdn-icons-png.flaticon.com/512/741/741407.png" class="gift-icon-full exclusive-gift-animated" alt="فيراري"><div class="gift-price-num">1500 🪙</div></div>
@@ -767,7 +666,7 @@
 
 <script>
     let currentEmail='',currentUserKey='',rtdb=null,auth=null;
-    let userData={points:0,gems:0,agentBag:0,lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,customId:'',name:'',avatar:'',bio:'',hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isAgent:false,isBanned:false,whatsapp:'',activeFrame:'',weeklyGiftsSent:0,weeklyWheelPoints:0,weeklyAgentPoints:0};
+    let userData={points:0,gems:0,agentBag:0,lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,customId:'',name:'',avatar:'',bio:'',hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isAgent:false,isBanned:false,whatsapp:''};
     let base64Image='',activeChatFriendKey='',activeChatFriendName='',visitedProfileTargetKey='',timerInterval=null;
     let isolatedActiveRoomId='',currentRoomOccupantsCount=0,activeRoomCreatorKey='',globalAppSettings={withdrawLocked:false,dailyCounterLocked:false};
     let newRoomAvatarBase64='',newRoomBgBase64='',agentResidenceFrontBase64='',agentResidenceBackBase64='',agentNationalFrontBase64='',agentNationalBackBase64='';
@@ -857,7 +756,7 @@
         rtdb.ref('users/'+currentUserKey).once('value').then(check=>{
             if(check.exists()){btn.disabled=false;btn.innerText="تأكيد الحساب ✨";return alert("⚠️ مسجل سابقاً!");}
             let defaultName=email.split('@')[0],assignedId=(email==='msaftwtn@gmail.com')?'1':Math.floor(100000+Math.random()*900000).toString();
-            const newUser={name:defaultName,email:email,password:pass,customId:assignedId,points:0,gems:0,agentBag:0,bio:'',lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isAgent:false,isBanned:false,whatsapp:'',weeklyGiftsSent:0,weeklyWheelPoints:0,weeklyAgentPoints:0,activeFrame:''};
+            const newUser={name:defaultName,email:email,password:pass,customId:assignedId,points:0,gems:0,agentBag:0,bio:'',lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isAgent:false,isBanned:false,whatsapp:'',weeklyGiftsSent:0,weeklyWheelPoints:0,weeklyAgentPoints:0};
             rtdb.ref('users/'+currentUserKey).set(newUser).then(()=>{
                 btn.disabled=false;btn.innerText="تأكيد الحساب ✨";currentEmail=email;
                 try{localStorage.setItem('dinarUserKey',currentUserKey);}catch(e){}
@@ -924,20 +823,6 @@
         if((userData.points||0)<price)return alert(`❌ نقاطك غير كافية! سعر العداد ${price.toLocaleString()} نقطة.`);
         userData.points-=price;userData.activeCounterVal=(userData.activeCounterVal||0)+pts;
         saveToDB().then(()=>{updateUI();alert(`🎉 مبروك! تم شراء العداد وأصبح إجمالي إنتاجك (${userData.activeCounterVal.toLocaleString()} نقطة يومياً).`);});
-    }
-
-    function buyPhotoFrame(frameName, price){
-        if((userData.points||0) < price){
-            return alert(`❌ عذراً، رصيدك غير كافي (${userData.points} نقطة). سعر ${frameName} هو ${price} نقطة!`);
-        }
-        if(confirm(`هل تريد شراء (${frameName}) بسعر ${price} نقطة؟`)){
-            userData.points -= price;
-            userData.activeFrame = frameName;
-            saveToDB().then(()=>{
-                updateUI();
-                alert(`🎉 مبروك! تم شراء وتفعيل (${frameName}) بنجاح.`);
-            });
-        }
     }
     
     function submitManualCounterOrder(){
