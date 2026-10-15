@@ -313,7 +313,7 @@
             <div class="wheel-box" id="wheelGraphic"></div>
             <div style="font-size:13px;color:#c084fc;font-weight:bold;margin:6px 0">تدوير العجلة بـ 100 جوهرة 💎 (هدايا نقاط)</div>
             <button id="spinBtn" class="action-btn btn-purple" style="padding:8px;margin-top:3px" onclick="spinWheel()">تدوير العجلة</button>
-            <div id="wheelMsg" style="margin-top:6px;font-size:12px;color:#38bdf8;font-weight:bold"></div>
+            <div id="wheelMsg" style="margin-top:8px;font-size:13px;color:#38bdf8;font-weight:bold;min-height:20px;"></div>
         </div>
     </div>
 
@@ -561,46 +561,46 @@
             <button onclick="openTargetSelectorModal()" style="background:#10b981;color:#fff;border:none;padding:3px 8px;border-radius:6px;font-size:10px;cursor:pointer;font-weight:bold">تغيير المستخدم 👥</button>
         </div>
         <div class="gift-tabs-header">
-            <button class="gift-tab-btn active" id="tabG1" onclick="switchGiftPane('p1')">☕ اقتصادية (1-6)</button>
-            <button class="gift-tab-btn" id="tabG2" onclick="switchGiftPane('p2')">💍 متوسطة (7-12)</button>
-            <button class="gift-tab-btn" id="tabG3" onclick="switchGiftPane('p3')">🚀 فاخرة (13-18)</button>
-            <button class="gift-tab-btn" id="tabG4" onclick="switchGiftPane('p4')">👑 ملوك (19-20)</button>
+            <button class="gift-tab-btn active" id="tabG1" onclick="switchGiftPane('p1')">🎁 تفاعلية (1-5)</button>
+            <button class="gift-tab-btn" id="tabG2" onclick="switchGiftPane('p2')">⭐ مميزة (6-10)</button>
+            <button class="gift-tab-btn" id="tabG3" onclick="switchGiftPane('p3')">💎 فاخرة (11-15)</button>
+            <button class="gift-tab-btn" id="tabG4" onclick="switchGiftPane('p4')">👑 حصرية (16-20)</button>
         </div>
         
-        <!-- القسم الأول: الهدايا الاقتصادية (1 إلى 6) -->
+        <!-- القسم الأول: الهدايا 1 إلى 5 (مع رسومات واضحة تماماً) -->
         <div id="pane1" class="gift-pane-content active">
-            <div class="gift-card-box" id="g1" onclick="highlightGift('فنجان قهوة ☕',10,'https://cdn-icons-png.flaticon.com/512/924/924514.png','g1')"><img src="https://cdn-icons-png.flaticon.com/512/924/924514.png" class="gift-icon-full" alt="قهوة"><div class="gift-price-num">10 🪙</div></div>
-            <div class="gift-card-box" id="g2" onclick="highlightGift('قطعة حلاوة 🍬',15,'https://cdn-icons-png.flaticon.com/512/3081/3081986.png','g2')"><img src="https://cdn-icons-png.flaticon.com/512/3081/3081986.png" class="gift-icon-full" alt="حلاوة"><div class="gift-price-num">15 🪙</div></div>
-            <div class="gift-card-box" id="g3" onclick="highlightGift('وردة حمراء 🌹',25,'https://cdn-icons-png.flaticon.com/512/2921/2921822.png','g3')"><img src="https://cdn-icons-png.flaticon.com/512/2921/2921822.png" class="gift-icon-full" alt="وردة"><div class="gift-price-num">25 🪙</div></div>
-            <div class="gift-card-box" id="g4" onclick="highlightGift('بالون ملون 🎈',30,'https://cdn-icons-png.flaticon.com/512/1253/1253383.png','g4')"><img src="https://cdn-icons-png.flaticon.com/512/1253/1253383.png" class="gift-icon-full" alt="بالون"><div class="gift-price-num">30 🪙</div></div>
-            <div class="gift-card-box" id="g5" onclick="highlightGift('قطعة شوكولاتة 🍫',40,'https://cdn-icons-png.flaticon.com/512/2196/2196985.png','g5')"><img src="https://cdn-icons-png.flaticon.com/512/2196/2196985.png" class="gift-icon-full" alt="شوكولاتة"><div class="gift-price-num">40 🪙</div></div>
-            <div class="gift-card-box" id="g6" onclick="highlightGift('قطعة دونات 🍩',50,'https://cdn-icons-png.flaticon.com/512/3081/3081967.png','g6')"><img src="https://cdn-icons-png.flaticon.com/512/3081/3081967.png" class="gift-icon-full" alt="دونات"><div class="gift-price-num">50 🪙</div></div>
+            <div class="gift-card-box" id="g1" onclick="highlightGift('علم العراق 🇮🇶',100,'https://upload.wikimedia.org/wikipedia/commons/f/f6/Flag_of_Iraq.svg','g1')"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Flag_of_Iraq.svg" class="gift-icon-full" alt="علم"><div class="gift-price-num">100 🪙</div></div>
+            <div class="gift-card-box" id="g2" onclick="highlightGift('وردة حمراء 🌹',25,'https://cdn-icons-png.flaticon.com/512/766/766155.png','g2')"><img src="https://cdn-icons-png.flaticon.com/512/766/766155.png" class="gift-icon-full" alt="وردة"><div class="gift-price-num">25 🪙</div></div>
+            <div class="gift-card-box" id="g3" onclick="highlightGift('قلب حب ❤️',30,'https://cdn-icons-png.flaticon.com/512/833/833472.png','g3')"><img src="https://cdn-icons-png.flaticon.com/512/833/833472.png" class="gift-icon-full" alt="قلب"><div class="gift-price-num">30 🪙</div></div>
+            <div class="gift-card-box" id="g4" onclick="highlightGift('عصير بيبسي 🥤',20,'https://cdn-icons-png.flaticon.com/512/2405/2405479.png','g4')"><img src="https://cdn-icons-png.flaticon.com/512/2405/2405479.png" class="gift-icon-full" alt="بيبسي"><div class="gift-price-num">20 🪙</div></div>
+            <div class="gift-card-box" id="g5" onclick="highlightGift('دراجة هوائية 🚲',15,'https://cdn-icons-png.flaticon.com/512/2972/2972185.png','g5')"><img src="https://cdn-icons-png.flaticon.com/512/2972/2972185.png" class="gift-icon-full" alt="دراجة"><div class="gift-price-num">15 🪙</div></div>
         </div>
 
-        <!-- القسم الثاني: الهدايا المتوسطة (7 إلى 12) -->
+        <!-- القسم الثاني: الهدايا 6 إلى 10 (رسومات واضحة تماماً) -->
         <div id="pane2" class="gift-pane-content">
-            <div class="gift-card-box" id="g7" onclick="highlightGift('بيتزا ساخنة 🍕',100,'https://cdn-icons-png.flaticon.com/512/3595/3595455.png','g7')"><img src="https://cdn-icons-png.flaticon.com/512/3595/3595455.png" class="gift-icon-full" alt="بيتزا"><div class="gift-price-num">100 🪙</div></div>
-            <div class="gift-card-box" id="g8" onclick="highlightGift('تاج ملكي 👑',150,'https://cdn-icons-png.flaticon.com/512/3607/3607444.png','g8')"><img src="https://cdn-icons-png.flaticon.com/512/3607/3607444.png" class="gift-icon-full" alt="تاج"><div class="gift-price-num">150 🪙</div></div>
-            <div class="gift-card-box" id="g9" onclick="highlightGift('قيثارة موسيقية 🎸',200,'https://cdn-icons-png.flaticon.com/512/3004/3004758.png','g9')"><img src="https://cdn-icons-png.flaticon.com/512/3004/3004758.png" class="gift-icon-full" alt="قيثارة"><div class="gift-price-num">200 🪙</div></div>
-            <div class="gift-card-box" id="g10" onclick="highlightGift('كعكة عيد ميلاد 🎂',300,'https://cdn-icons-png.flaticon.com/512/3132/3132693.png','g10')"><img src="https://cdn-icons-png.flaticon.com/512/3132/3132693.png" class="gift-icon-full" alt="كعكة"><div class="gift-price-num">300 🪙</div></div>
-            <div class="gift-card-box" id="g11" onclick="highlightGift('سماعات دي جي 🎧',400,'https://cdn-icons-png.flaticon.com/512/3076/3076986.png','g11')"><img src="https://cdn-icons-png.flaticon.com/512/3076/3076986.png" class="gift-icon-full" alt="سماعات"><div class="gift-price-num">400 🪙</div></div>
-            <div class="gift-card-box" id="g12" onclick="highlightGift('خاتم ألماس 💍',500,'https://cdn-icons-png.flaticon.com/512/931/931945.png','g12')"><img src="https://cdn-icons-png.flaticon.com/512/931/931945.png" class="gift-icon-full" alt="خاتم"><div class="gift-price-num">500 🪙</div></div>
+            <div class="gift-card-box" id="g6" onclick="highlightGift('قطة أليفة 🐱',15,'https://cdn-icons-png.flaticon.com/512/616/616430.png','g6')"><img src="https://cdn-icons-png.flaticon.com/512/616/616430.png" class="gift-icon-full" alt="قطة"><div class="gift-price-num">15 🪙</div></div>
+            <div class="gift-card-box" id="g7" onclick="highlightGift('حلاوة ملونة 🍬',20,'https://cdn-icons-png.flaticon.com/512/3081/3081986.png','g7')"><img src="https://cdn-icons-png.flaticon.com/512/3081/3081986.png" class="gift-icon-full" alt="حلاوة"><div class="gift-price-num">20 🪙</div></div>
+            <div class="gift-card-box" id="g8" onclick="highlightGift('بالون طائر 🎈',30,'https://cdn-icons-png.flaticon.com/512/1253/1253383.png','g8')"><img src="https://cdn-icons-png.flaticon.com/512/1253/1253383.png" class="gift-icon-full" alt="بالون"><div class="gift-price-num">30 🪙</div></div>
+            <div class="gift-card-box" id="g9" onclick="highlightGift('بيتزا ساخنة 🍕',100,'https://cdn-icons-png.flaticon.com/512/3595/3595455.png','g9')"><img src="https://cdn-icons-png.flaticon.com/512/3595/3595455.png" class="gift-icon-full" alt="بيتزا"><div class="gift-price-num">100 🪙</div></div>
+            <div class="gift-card-box" id="g10" onclick="highlightGift('تاج ملكي 👑',150,'https://cdn-icons-png.flaticon.com/512/3607/3607444.png','g10')"><img src="https://cdn-icons-png.flaticon.com/512/3607/3607444.png" class="gift-icon-full" alt="تاج"><div class="gift-price-num">150 🪙</div></div>
         </div>
 
-        <!-- القسم الثالث: الهدايا الفاخرة (13 إلى 18) -->
+        <!-- القسم الثالث: الهدايا 11 إلى 15 (رسومات فاخرة وواضحة جداً) -->
         <div id="pane3" class="gift-pane-content">
-            <div class="gift-card-box" id="g13" onclick="highlightGift('دراجة نارية 🏍️',750,'https://cdn-icons-png.flaticon.com/512/2972/2972185.png','g13')"><img src="https://cdn-icons-png.flaticon.com/512/2972/2972185.png" class="gift-icon-full" alt="دراجة"><div class="gift-price-num">750 🪙</div></div>
-            <div class="gift-card-box" id="g14" onclick="highlightGift('الأسد الملكي 🦁',1000,'https://cdn-icons-png.flaticon.com/512/1998/1998612.png','g14')"><img src="https://cdn-icons-png.flaticon.com/512/1998/1998612.png" class="gift-icon-full exclusive-gift-animated" alt="أسد"><div class="gift-price-num">1000 🪙</div></div>
-            <div class="gift-card-box" id="g15" onclick="highlightGift('سيارة فيراري 🏎️',1200,'https://cdn-icons-png.flaticon.com/512/741/741407.png','g15')"><img src="https://cdn-icons-png.flaticon.com/512/741/741407.png" class="gift-icon-full exclusive-gift-animated" alt="فيراري"><div class="gift-price-num">1200 🪙</div></div>
-            <div class="gift-card-box" id="g16" onclick="highlightGift('قلعة أسطورية 🏰',1500,'https://cdn-icons-png.flaticon.com/512/3067/3067425.png','g16')"><img src="https://cdn-icons-png.flaticon.com/512/3067/3067425.png" class="gift-icon-full exclusive-gift-animated" alt="قلعة"><div class="gift-price-num">1500 🪙</div></div>
-            <div class="gift-card-box" id="g17" onclick="highlightGift('صاروخ الفضاء 🚀',1800,'https://cdn-icons-png.flaticon.com/512/1356/1356479.png','g17')"><img src="https://cdn-icons-png.flaticon.com/512/1356/1356479.png" class="gift-icon-full exclusive-gift-animated" alt="صاروخ"><div class="gift-price-num">1800 🪙</div></div>
-            <div class="gift-card-box" id="g18" onclick="highlightGift('مجرة الفضاء 🌌',2000,'https://cdn-icons-png.flaticon.com/512/1146/1146869.png','g18')"><img src="https://cdn-icons-png.flaticon.com/512/1146/1146869.png" class="gift-icon-full exclusive-gift-animated" alt="مجرة"><div class="gift-price-num">2000 🪙</div></div>
+            <div class="gift-card-box" id="g11" onclick="highlightGift('قيثارة موسيقية 🎸',200,'https://cdn-icons-png.flaticon.com/512/3004/3004758.png','g11')"><img src="https://cdn-icons-png.flaticon.com/512/3004/3004758.png" class="gift-icon-full" alt="قيثارة"><div class="gift-price-num">200 🪙</div></div>
+            <div class="gift-card-box" id="g12" onclick="highlightGift('كعكة عيد ميلاد 🎂',300,'https://cdn-icons-png.flaticon.com/512/3132/3132693.png','g12')"><img src="https://cdn-icons-png.flaticon.com/512/3132/3132693.png" class="gift-icon-full" alt="كعكة"><div class="gift-price-num">300 🪙</div></div>
+            <div class="gift-card-box" id="g13" onclick="highlightGift('سماعات دي جي 🎧',400,'https://cdn-icons-png.flaticon.com/512/3076/3076986.png','g13')"><img src="https://cdn-icons-png.flaticon.com/512/3076/3076986.png" class="gift-icon-full" alt="سماعات"><div class="gift-price-num">400 🪙</div></div>
+            <div class="gift-card-box" id="g14" onclick="highlightGift('خاتم ألماس 💍',500,'https://cdn-icons-png.flaticon.com/512/931/931945.png','g14')"><img src="https://cdn-icons-png.flaticon.com/512/931/931945.png" class="gift-icon-full" alt="خاتم"><div class="gift-price-num">500 🪙</div></div>
+            <div class="gift-card-box" id="g15" onclick="highlightGift('دب قطبي 🧸',800,'https://cdn-icons-png.flaticon.com/512/3022/3022361.png','g15')"><img src="https://cdn-icons-png.flaticon.com/512/3022/3022361.png" class="gift-icon-full exclusive-gift-animated" alt="دب"><div class="gift-price-num">800 🪙</div></div>
         </div>
 
-        <!-- القسم الرابع: هدايا الملوك والأباطرة (19 و 20) -->
+        <!-- القسم الرابع: الهدايا 16 إلى 20 الحصرية والملوكية (برسومات بارزة وواضحة جداً) -->
         <div id="pane4" class="gift-pane-content">
-            <div class="gift-card-box" id="g19" onclick="highlightGift('تنين النار الأسطوري 🐉',3500,'https://cdn-icons-png.flaticon.com/512/3211/3211339.png','g19')"><img src="https://cdn-icons-png.flaticon.com/512/3211/3211339.png" class="gift-icon-full exclusive-gift-animated" alt="تنين"><div class="gift-price-num">3500 🪙</div></div>
-            <div class="gift-card-box" id="g20" onclick="highlightGift('الجوهرة الكونية المطلقة 💎',5000,'https://cdn-icons-png.flaticon.com/512/764/764493.png','g20')"><img src="https://cdn-icons-png.flaticon.com/512/764/764493.png" class="gift-icon-full exclusive-gift-animated" alt="جوهرة"><div class="gift-price-num">5000 🪙</div></div>
+            <div class="gift-card-box" id="g16" onclick="highlightGift('الأسد الملكي 🦁',1000,'https://cdn-icons-png.flaticon.com/512/616/616408.png','g16')"><img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="gift-icon-full exclusive-gift-animated" alt="أسد"><div class="gift-price-num">1000 🪙</div></div>
+            <div class="gift-card-box" id="g17" onclick="highlightGift('سيارة فيراري 🏎️',1500,'https://cdn-icons-png.flaticon.com/512/741/741407.png','g17')"><img src="https://cdn-icons-png.flaticon.com/512/741/741407.png" class="gift-icon-full exclusive-gift-animated" alt="فيراري"><div class="gift-price-num">1500 🪙</div></div>
+            <div class="gift-card-box" id="g18" onclick="highlightGift('فضاء حقيقي 🌌',1400,'https://cdn-icons-png.flaticon.com/512/3212/3212608.png','g18')"><img src="https://cdn-icons-png.flaticon.com/512/3212/3212608.png" class="gift-icon-full exclusive-gift-animated" alt="فضاء"><div class="gift-price-num">1400 🪙</div></div>
+            <div class="gift-card-box" id="g19" onclick="highlightGift('ذئب بري 🐺',750,'https://cdn-icons-png.flaticon.com/512/616/616412.png','g19')"><img src="https://cdn-icons-png.flaticon.com/512/616/616412.png" class="gift-icon-full exclusive-gift-animated" alt="ذئب"><div class="gift-price-num">750 🪙</div></div>
+            <div class="gift-card-box" id="g20" onclick="highlightGift('نرد الزار 🎲',150,'https://cdn-icons-png.flaticon.com/512/1041/1041888.png','g20')"><img src="https://cdn-icons-png.flaticon.com/512/1041/1041888.png" class="gift-icon-full exclusive-gift-animated" alt="نرد"><div class="gift-price-num">150 🪙</div></div>
         </div>
 
         <div class="bottom-action-bar" id="giftSendActionBar"><button onclick="confirmSendPendingGift()" style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;border:none;padding:6px 18px;border-radius:8px;font-size:12px;font-weight:bold;cursor:pointer;box-shadow:0 3px 10px rgba(16,185,129,0.4)">إرسال 🚀</button></div>
@@ -887,8 +887,8 @@
         if(isSpinning)return;let msg=document.getElementById('wheelMsg'),spinBtn=document.getElementById('spinBtn');
         if((userData.gems||0)<100)return msg.innerText="❌ ليس لديك جواهر كافية (يلزم 100 جوهرة)!";
         isSpinning=true;spinBtn.disabled=true;userData.gems-=100;saveToDB();
-        let wheel=document.getElementById('wheelGraphic'),prizes=[0,5,10,15,20,50],idx=Math.floor(Math.random()*6),prize=prizes[idx];
-        totalWheelDegrees+=3600+(idx*60)+30;wheel.style.transform=`rotate(${totalWheelDegrees}deg)`;
+        let wheel=document.getElementById('wheelGraphic'),prizes=[0,5,10,15,20,25,50],idx=Math.floor(Math.random()*7),prize=prizes[idx];
+        totalWheelDegrees+=3600+(idx*51.4)+25;wheel.style.transform=`rotate(${totalWheelDegrees}deg)`;
         setTimeout(()=>{
             userData.points=(userData.points||0)+prize;userData.weeklyWheelPoints=(userData.weeklyWheelPoints||0)+prize;
             saveToDB().then(()=>{msg.innerText=`🎉 مبروك! حصلت على ${prize} نقطة بنجاح!`;isSpinning=false;spinBtn.disabled=false;updateUI();});
@@ -1429,12 +1429,7 @@
         selectedTargetUserKey=tk;selectedTargetUserName=tn;
         document.getElementById('giftModalMainTitle').innerText=tk==='all'?'صندوق الهدايا العامة (للجميع)':`إرسال هدية إلى: ${tn}`;
         document.getElementById('activeTargetDisplayLabel').innerHTML=`🎯 يتم الإرسال إلى: <b>${tn}</b>`;
-        rtdb.ref(`room_occupants/${isolatedActiveRoomId}`).once('value').then(snap=>{
-            let keys=Object.keys(snap.val()||{}),sb=document.getElementById('giftSendActionBar');
-            if(keys.length<1){if(sb)sb.style.display='none';}
-            else{if(sb)sb.style.display='flex';}
-            document.getElementById('unifiedGiftModal').style.display='flex';
-        });
+        document.getElementById('unifiedGiftModal').style.display='flex';
     }
     function openTargetSelectorModal(){
         if(!isolatedActiveRoomId)return;let c=document.getElementById('roomOccupantsListContainer');c.innerHTML="جاري جلب الحضور...";
@@ -1452,8 +1447,6 @@
     function closeTargetSelectorModal(){document.getElementById('targetSelectorModal').style.display='none';}
     function selectTargetAndCloseModal(tk,tn){
         selectedTargetUserKey=tk;selectedTargetUserName=tn;
-        let sb=document.getElementById('giftSendActionBar');
-        if(sb)sb.style.display='flex';
         document.getElementById('activeTargetDisplayLabel').innerHTML=`🎯 يتم الإرسال إلى: <b>${tn}</b>`;
         document.getElementById('giftModalMainTitle').innerText=tk==='all'?'صندوق الهدايا العامة (للجميع)':`إرسال هدية إلى: ${tn}`;
         closeTargetSelectorModal();
@@ -1473,50 +1466,46 @@
     function confirmSendPendingGift(){
         if(!pendingSelectedGift)return alert('⚠️ اختر هدية أولاً!');
         let cost=pendingSelectedGift.cost,gName=pendingSelectedGift.name,gIcon=pendingSelectedGift.icon;
+        
         rtdb.ref(`room_occupants/${isolatedActiveRoomId}`).once('value').then(os=>{
             let occupants=os.val()||{}, occupantKeys=Object.keys(occupants);
-            if(occupantKeys.length===0)return alert('⚠️ لا توجد حضور في الغرفة!');
+            
+            if(selectedTargetUserKey===currentUserKey)return alert('⚠️ عذراً، لا يمكنك إرسال هدية لنفسك!');
+            if(selectedTargetUserKey!=='all'&&!occupants[selectedTargetUserKey])return alert('⚠️ هذا المستخدم غير متواجد في الغرفة حالياً!');
             
             rtdb.ref(`users/${currentUserKey}`).once('value').then(ss=>{
                 let sDat=ss.val(),curPts=sDat.points||0;
                 
-                // إذا كان إرسال جماعي (الكل)
                 if(selectedTargetUserKey==='all'){
-                    let totalCost=cost*occupantKeys.length;
-                    if(curPts<totalCost)return alert(`❌ نقاطك غير كافية لإرسال الهدية للجميع! التكلفة الإجمالية: ${totalCost} نقطة (تكلفة الفرد ${cost} × ${occupantKeys.length} أشخاص).`);
+                    let otherUsers=occupantKeys.filter(k=>k!==currentUserKey);
+                    if(otherUsers.length===0)return alert('⚠️ لا توجد أشخاص معك في الغرفة لإرسال هدية جماعية!');
+                    let totalCost=cost*otherUsers.length;
+                    if(curPts<totalCost)return alert(`❌ نقاطك غير كافية! التكلفة الإجمالية للجميع: ${totalCost} نقطة.`);
                     
                     let up={};up[`users/${currentUserKey}/points`]=curPts-totalCost;up[`users/${currentUserKey}/weeklyGiftsSent`]=(sDat.weeklyGiftsSent||0)+totalCost;
                     
                     let promises=[];
-                    occupantKeys.forEach(uk=>{
-                        if(uk!==currentUserKey){
-                            promises.push(rtdb.ref(`users/${uk}`).once('value').then(ts=>{
-                                if(ts.exists()){
-                                    let tPoints=(ts.val().points||0)+Math.floor(cost*0.60);
-                                    up[`users/${uk}/points`]=tPoints;
-                                }
-                                let gk=gName.replace(/[^a-zA-Z0-9]/g,'_');
-                                return rtdb.ref(`profile_gifts/${uk}/${gk}`).once('value').then(gs=>{
-                                    let cnt=gs.exists()?(gs.val().count||0):0;
-                                    up[`profile_gifts/${uk}/${gk}`]={giftName:gName,giftIcon:gIcon,count:cnt+1};
-                                });
-                            }));
-                        }
+                    otherUsers.forEach(uk=>{
+                        promises.push(rtdb.ref(`users/${uk}`).once('value').then(ts=>{
+                            if(ts.exists()){up[`users/${uk}/points`]=(ts.val().points||0)+Math.floor(cost*0.60);}
+                            let gk=gName.replace(/[^a-zA-Z0-9]/g,'_');
+                            return rtdb.ref(`profile_gifts/${uk}/${gk}`).once('value').then(gs=>{
+                                let cnt=gs.exists()?(gs.val().count||0):0;
+                                up[`profile_gifts/${uk}/${gk}`]={giftName:gName,giftIcon:gIcon,count:cnt+1};
+                            });
+                        }));
                     });
                     
                     Promise.all(promises).then(()=>{
                         rtdb.ref().update(up).then(()=>{
                             rtdb.ref(`room_messages/${isolatedActiveRoomId}`).push({sender:currentUserKey,senderName:sDat.name,targetKey:'all',targetName:'جميع الحضور (Broadcast)',giftName:gName,giftIcon:gIcon,isGift:true,timestamp:Date.now()});
-                            closeUnifiedGiftBox();alert(`🎉 تم إرسال هدية (${gName}) بنجاح إلى جميع الحضور في الغرفة!`);
+                            closeUnifiedGiftBox();alert(`🎉 تم إرسال هدية (${gName}) بنجاح إلى جميع الحضور!`);
                         });
                     });
-                } 
-                // إذا كان إرسال لشخص محدد
-                else {
-                    if(selectedTargetUserKey===currentUserKey)return alert('⚠️ لا يمكنك إرسال هدية لنفسك!');
-                    if(curPts<cost)return alert(`❌ نقاطك غير كافية! سعر الهدية: ${cost} ورصيدك: ${curPts}`);
-                    
+                } else {
+                    if(curPts<cost)return alert(`❌ رصيدك (${curPts}) لا يكفي لشراء هذه الهدية (${cost} نقطة)!`);
                     let up={};up[`users/${currentUserKey}/points`]=curPts-cost;up[`users/${currentUserKey}/weeklyGiftsSent`]=(sDat.weeklyGiftsSent||0)+cost;
+                    
                     rtdb.ref(`users/${selectedTargetUserKey}`).once('value').then(ts=>{
                         if(ts.exists())up[`users/${selectedTargetUserKey}/points`]=(ts.val().points||0)+Math.floor(cost*0.60);
                         let gk=gName.replace(/[^a-zA-Z0-9]/g,'_');
@@ -1525,7 +1514,7 @@
                             up[`profile_gifts/${selectedTargetUserKey}/${gk}`]={giftName:gName,giftIcon:gIcon,count:cnt+1};
                             rtdb.ref().update(up).then(()=>{
                                 rtdb.ref(`room_messages/${isolatedActiveRoomId}`).push({sender:currentUserKey,senderName:sDat.name,targetKey:selectedTargetUserKey,targetName:selectedTargetUserName,giftName:gName,giftIcon:gIcon,isGift:true,timestamp:Date.now()});
-                                closeUnifiedGiftBox();alert(`🎉 تم إرسال هدية (${gName}) بنجاح إلى ${selectedTargetUserName} وظهرت في ملفه الشخصي!`);
+                                closeUnifiedGiftBox();alert(`🎉 تم إرسال هدية (${gName}) بنجاح إلى ${selectedTargetUserName}!`);
                             });
                         });
                     });
