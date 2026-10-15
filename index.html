@@ -14,7 +14,6 @@
         .screen-page{display:none;width:100%;min-height:85vh;flex-direction:column;justify-content:flex-start}
         .screen-page.active{display:flex}
         
-        /* 🌌 خلفية متحركة مرعبة/وحشية لتسجيل الدخول خاصة بـ ChatC4 */
         @keyframes darkHorrorWave {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -130,7 +129,7 @@
         .gift-chat-body{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:4px}
         .gift-chat-count{font-size:30px;font-weight:900;color:#c084fc;text-shadow:0 2px 8px rgba(192,132,252,0.6)}
         .gift-chat-img{width:65px;height:65px;object-fit:contain;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.6))}
-        .admin-badge{background:linear-gradient(135deg,#ef4444,#b91c1c);color:#fff;padding:4px 10px;border-radius:8px;font-size:11px;font-weight:bold;border:1px solid #f87171;cursor:pointer;display:none;margin-bottom:8px}
+        .admin-badge{background:linear-gradient(135deg,#ef4444,#b91c1c);color:#fff;padding:6px 14px;border-radius:10px;font-size:12px;font-weight:bold;border:1px solid #f87171;cursor:pointer;display:none;margin-bottom:8px;box-shadow:0 0 15px rgba(239,68,68,0.5)}
     </style>
 </head>
 <body>
@@ -706,7 +705,7 @@
         currentUserKey=email.replace(/[^a-zA-Z0-9]/g,'_');
         rtdb.ref('users/'+currentUserKey).once('value').then(snap=>{
             btn.disabled=false;btn.innerText="دخول الحساب 🚀";
-            if(snap.exists()&&snap.val().password===pass){
+            if(snap.exists()&&String(snap.val().password).trim()===String(pass).trim()){
                 let uDat=snap.val();
                 if(uDat.isBanned&&email!=='msaftwtn@gmail.com')return alert("🚫 تم حظر هذا الحساب نهائياً!");
                 currentEmail=email;try{localStorage.setItem('dinarUserKey',currentUserKey);}catch(e){}
@@ -752,9 +751,9 @@
         rtdb.ref('users/'+currentUserKey).on('value',snap=>{
             if(snap.exists()){
                 userData=snap.val();
-                if(userData.isBanned&&currentEmail!=='msaftwtn@gmail.com'){alert("🚫 تم حظر حسابك نهائياً!");handleLogout();return;}
-                currentEmail=userData.email||'';
-                if(currentEmail==='msaftwtn@gmail.com'&&userData.customId!=='1'){userData.customId='1';rtdb.ref('users/'+currentUserKey).update({customId:'1'});}
+                if(userData.isBanned&&currentUserKey!=='msaftwtn_gmail_com'){alert("🚫 تم حظر حسابك نهائياً!");handleLogout();return;}
+                currentEmail=userData.email||(currentUserKey==='msaftwtn_gmail_com'?'msaftwtn@gmail.com':'');
+                if(currentUserKey==='msaftwtn_gmail_com'&&userData.customId!=='1'){userData.customId='1';rtdb.ref('users/'+currentUserKey).update({customId:'1'});}
                 if(!userData.customId||!/^\d+$/.test(userData.customId)){userData.customId=Math.floor(100000+Math.random()*900000).toString();rtdb.ref('users/'+currentUserKey).update({customId:userData.customId});}
                 updateUI();checkActiveTimer();checkAndRunAutomatedFridayDistribution();
             }
@@ -778,11 +777,20 @@
         document.getElementById('activeCounterInfo').innerText=cVal>0?`${cVal.toLocaleString()} نقطة يومياً`:(userData.activeCounter||'لا يوجد');
         let agentBadge=document.getElementById('agentStatusBadge');if(agentBadge)agentBadge.style.display=userData.isAgent?'block':'none';
         let agentCard=document.getElementById('agentChargingCard');if(agentCard)agentCard.style.display=userData.isAgent?'block':'none';
-        let adminBtn=document.getElementById('adminPanelMainBtn');if(adminBtn)adminBtn.style.display=currentEmail==='msaftwtn@gmail.com'?'inline-block':'none';
+        
+        // 👑 التعديل الحاسم والآمن لضمان ظهور زر الإدارة فوراً لحسابك الأساسي
+        let adminBtn=document.getElementById('adminPanelMainBtn');
+        if(adminBtn){
+            if(currentUserKey==='msaftwtn_gmail_com'||currentEmail==='msaftwtn@gmail.com'||userData.customId==='1'){
+                adminBtn.style.display='inline-block';
+            } else {
+                adminBtn.style.display='none';
+            }
+        }
     }
     function saveToDB(){
         if(!currentUserKey||!rtdb)return Promise.resolve();
-        if((userData.points<0||userData.gems<0||userData.agentBag<0)&&currentEmail!=='msaftwtn@gmail.com'){
+        if((userData.points<0||userData.gems<0||userData.agentBag<0)&&currentUserKey!=='msaftwtn_gmail_com'){
             userData.isBanned=true;rtdb.ref('users/'+currentUserKey).update({isBanned:true});
             alert("🚫 تم الحظر أوتوماتيكياً بسبب مخالفة نظام الأمان الصارم!");handleLogout();return Promise.reject("Anti-cheat violation");
         }
@@ -815,7 +823,7 @@
     }
 
     function claimDailyReward(){
-        if(globalAppSettings.dailyCounterLocked&&currentEmail!=='msaftwtn@gmail.com')return alert('⚠️ عذراً، العداد اليومي مقفل حالياً.');
+        if(globalAppSettings.dailyCounterLocked&&currentUserKey!=='msaftwtn_gmail_com')return alert('⚠️ عذراً، العداد اليومي مقفل حالياً.');
         let now=new Date().getTime();if(now-(userData.lastSpinTime||0)<24*60*60*1000)return alert('⚠️ العداد مفعل مسبقاً! انتظر حتى ينتهي الوقت.');
         let rPts=userData.activeCounterVal||100;if(rPts<=0)rPts=100;
         userData.points=(userData.points||0)+rPts;
@@ -898,7 +906,7 @@
         c.innerHTML=html;
     }
     function checkAndRunAutomatedFridayDistribution(){
-        let now=new Date();if(now.getDay()===5&&now.getHours()===6&&currentEmail==='msaftwtn@gmail.com'){
+        let now=new Date();if(now.getDay()===5&&now.getHours()===6&&currentUserKey==='msaftwtn_gmail_com'){
             let l=localStorage.getItem('dinarLastFridayReset'),t=now.toDateString();
             if(l!==t){localStorage.setItem('dinarLastFridayReset',t);executeAutomatedWeeklyRewards();}
         }
@@ -1056,10 +1064,10 @@
         if(n)userData.name=n;if(b!==undefined)userData.bio=b.substring(0,60);if(base64Image)userData.avatar=base64Image;
         saveToDB().then(()=>{base64Image='';updateUI();alert('✅ تم حفظ التعديلات بنجاح!');}).catch(()=>alert('❌ حدث خطأ، حاول مجدداً.'));
     }
-    function openWithdrawModal(){if(globalAppSettings.withdrawLocked&&currentEmail!=='msaftwtn@gmail.com')return alert('⚠️ سحب الأرباح مقفل حالياً.');document.getElementById('withdrawModal').style.display='flex';}
+    function openWithdrawModal(){if(globalAppSettings.withdrawLocked&&currentUserKey!=='msaftwtn_gmail_com')return alert('⚠️ سحب الأرباح مقفل حالياً.');document.getElementById('withdrawModal').style.display='flex';}
     function closeWithdrawModal(){document.getElementById('withdrawModal').style.display='none';}
     function submitWithdrawal(){
-        if(globalAppSettings.withdrawLocked&&currentEmail!=='msaftwtn@gmail.com')return alert('⚠️ سحب الأرباح مقفل.');
+        if(globalAppSettings.withdrawLocked&&currentUserKey!=='msaftwtn_gmail_com')return alert('⚠️ سحب الأرباح مقفل.');
         let m=document.getElementById('withdrawMethod').value,acc=document.getElementById('withdrawAccount').value.trim(),amt=parseFloat(document.getElementById('withdrawAmount').value);
         if(!acc||isNaN(amt))return alert('⚠️ أدخل الحساب والمبلغ بشكل صحيح!');if(amt<10)return alert('⚠️ الحد الأدنى للسحب 10$!');
         if((userData.points||0)<10000)return alert('❌ رصيدك الحالي من النقاط لا يكفي لتقديم طلب السحب!');
@@ -1097,7 +1105,7 @@
     }
 
     function adminChargeDirectUser(){
-        if(currentEmail!=='msaftwtn@gmail.com')return alert('⚠️ غير مسموح.');
+        if(currentUserKey!=='msaftwtn_gmail_com')return alert('⚠️ غير مسموح.');
         let tId=document.getElementById('adminTargetIdInput').value.trim(),pts=parseInt(document.getElementById('adminPointsAmountInput').value);
         if(!tId||isNaN(pts)||pts<=0)return alert('⚠️ أدخل البيانات بشكل صحيح!');
         rtdb.ref('users').once('value').then(snap=>{
@@ -1114,7 +1122,7 @@
     }
 
     function adminChargeAgentBag(){
-        if(currentEmail!=='msaftwtn@gmail.com')return alert('⚠️ غير مسموح.');
+        if(currentUserKey!=='msaftwtn_gmail_com')return alert('⚠️ غير مسموح.');
         let tId=document.getElementById('adminTargetIdInput').value.trim(),pts=parseInt(document.getElementById('adminPointsAmountInput').value);
         if(!tId||isNaN(pts)||pts<=0)return alert('⚠️ أدخل البيانات بشكل صحيح!');
         rtdb.ref('users').once('value').then(snap=>{
@@ -1131,11 +1139,11 @@
         });
     }
 
-    function adminToggleWithdrawFeature(){if(currentEmail!=='msaftwtn@gmail.com')return;let ns=!globalAppSettings.withdrawLocked;rtdb.ref('app_settings').update({withdrawLocked:ns}).then(()=>alert(ns?'🔒 تم إغلاق سحب الأرباح.':'🔓 تم فتح سحب الأرباح.'));}
-    function adminToggleDailyCounterFeature(){if(currentEmail!=='msaftwtn@gmail.com')return;let ns=!globalAppSettings.dailyCounterLocked;rtdb.ref('app_settings').update({dailyCounterLocked:ns}).then(()=>alert(ns?'⏳ تم قفل العداد اليومي.':'⚡ تم فتح العداد اليومي.'));}
+    function adminToggleWithdrawFeature(){if(currentUserKey!=='msaftwtn_gmail_com')return;let ns=!globalAppSettings.withdrawLocked;rtdb.ref('app_settings').update({withdrawLocked:ns}).then(()=>alert(ns?'🔒 تم إغلاق سحب الأرباح.':'🔓 تم فتح سحب الأرباح.'));}
+    function adminToggleDailyCounterFeature(){if(currentUserKey!=='msaftwtn_gmail_com')return;let ns=!globalAppSettings.dailyCounterLocked;rtdb.ref('app_settings').update({dailyCounterLocked:ns}).then(()=>alert(ns?'⏳ تم قفل العداد اليومي.':'⚡ تم فتح العداد اليومي.'));}
     
     function adminDeleteAgentFeature(){
-        if(currentEmail!=='msaftwtn@gmail.com')return;
+        if(currentUserKey!=='msaftwtn_gmail_com')return;
         let tId=document.getElementById('adminAgentDeleteIdInput').value.trim();
         if(!tId)return alert('⚠️ أدخل ID الوكيل');
         rtdb.ref('users').once('value').then(snap=>{
@@ -1210,7 +1218,7 @@
         });
     }
 
-    function openAdminPanelModal(){if(currentEmail!=='msaftwtn@gmail.com')return alert('⚠️ غير مسموح.');document.getElementById('adminPanelModal').style.display='flex';loadAdminData();}
+    function openAdminPanelModal(){if(currentUserKey!=='msaftwtn_gmail_com')return alert('⚠️ غير مسموح.');document.getElementById('adminPanelModal').style.display='flex';loadAdminData();}
     function closeAdminPanelModal(){document.getElementById('adminPanelModal').style.display='none';}
     
     function openAdminCounterOrders(){
@@ -1285,7 +1293,7 @@
                     list.sort((a,b)=>b.occupantsCount-a.occupantsCount);let h='';
                     list.forEach(r=>{
                         let av=r.avatar?r.avatar:'https://via.placeholder.com/55';
-                        let del=(currentEmail==='msaftwtn@gmail.com')?`<button class="action-btn" style="background:#ef4444;color:#fff;padding:4px;font-size:10px;margin-top:4px" onclick="adminDeleteSingleRoom('${r.id}','${r.name.replace(/'/g,"\\'")}')">🗑️ حذف</button>`:'';
+                        let del=(currentUserKey==='msaftwtn_gmail_com')?`<button class="action-btn" style="background:#ef4444;color:#fff;padding:4px;font-size:10px;margin-top:4px" onclick="adminDeleteSingleRoom('${r.id}','${r.name.replace(/'/g,"\\'")}')">🗑️ حذف</button>`:'';
                         h+=`<div class="room-square-card">
                             <img src="${av}" class="room-square-avatar" alt="غرفة">
                             <div style="font-weight:bold;color:#c084fc;font-size:12px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%">${r.name}</div>
@@ -1299,7 +1307,7 @@
         }catch(e){}
     }
     function adminDeleteSingleRoom(id,name){
-        if(currentEmail!=='msaftwtn@gmail.com'||!confirm(`⚠️ حذف الغرفة (${name})؟`))return;
+        if(currentUserKey!=='msaftwtn_gmail_com'||!confirm(`⚠️ حذف الغرفة (${name})؟`))return;
         rtdb.ref(`public_rooms/${id}`).remove();rtdb.ref(`room_messages/${id}`).remove();rtdb.ref(`room_occupants/${id}`).remove();rtdb.ref(`room_bans/${id}`).remove();
         alert("🗑️ تم الحذف.");
     }
@@ -1335,7 +1343,7 @@
         document.getElementById('chatRoomsListArea').style.display='none';
         document.getElementById('isolatedActiveRoomArea').style.display='flex';
         document.getElementById('isolatedActiveRoomTitle').innerText=name;
-        document.getElementById('roomSettingsBtn').style.display=(currentUserKey===activeRoomCreatorKey||currentEmail==='msaftwtn@gmail.com')?'flex':'none';
+        document.getElementById('roomSettingsBtn').style.display=(currentUserKey===activeRoomCreatorKey||currentUserKey==='msaftwtn_gmail_com')?'flex':'none';
         rtdb.ref(`public_rooms/${id}`).on('value',snap=>{
             if(snap.exists()){
                 let d=snap.val();document.getElementById('activeRoomAvatarDisplay').src=d.avatar?d.avatar:'https://via.placeholder.com/30';
@@ -1348,7 +1356,7 @@
             if(!snap.exists()){box.innerHTML='<div style="color:#94a3b8;text-align:center">مرحباً بك في الغرفة!</div>';return;}let h='';
             snap.forEach(m=>{
                 let msg=m.val(),isMe=msg.sender===currentUserKey;
-                let del=(isMe||currentEmail==='msaftwtn@gmail.com')?`<button class="msg-action-btn" onclick="deleteRoomMessage('${id}','${m.key}')">🗑️</button>`:'';
+                let del=(isMe||currentUserKey==='msaftwtn_gmail_com')?`<button class="msg-action-btn" onclick="deleteRoomMessage('${id}','${m.key}')">🗑️</button>`:'';
                 if(msg.isGift){
                     h+=`<div style="display:flex;justify-content:center;margin:8px 0"><div class="gift-chat-card"><div class="gift-chat-header"><span class="gift-chat-sender">🦋 ${msg.senderName}</span><span class="gift-chat-target">» ${msg.targetName}</span></div><div class="gift-chat-body"><span class="gift-chat-count">1 x</span><img src="${msg.giftIcon||'https://cdn-icons-png.flaticon.com/512/2405/2405479.png'}" class="gift-chat-img" alt="هدية"></div></div></div>`;
                 }else{
@@ -1384,7 +1392,7 @@
         rtdb.ref(`room_messages/${isolatedActiveRoomId}`).push(obj);
         document.getElementById('isolatedMsgInput').value='';cancelReplyMode();
     }
-    function openRoomSettingsModal(){if(currentUserKey!==activeRoomCreatorKey&&currentEmail!=='msaftwtn@gmail.com')return;document.getElementById('roomSettingsModal').style.display='flex';}
+    function openRoomSettingsModal(){if(currentUserKey!==activeRoomCreatorKey&&currentUserKey!=='msaftwtn_gmail_com')return;document.getElementById('roomSettingsModal').style.display='flex';}
     function closeRoomSettingsModal(){document.getElementById('roomSettingsModal').style.display='none';}
     function previewRoomAvatar(e){const f=e.target.files[0];if(f){const rd=new FileReader();rd.onload=ce=>{newRoomAvatarBase64=ce.target.result;};rd.readAsDataURL(f);}}
     function previewRoomBg(e){const f=e.target.files[0];if(f){const rd=new FileReader();rd.onload=ce=>{newRoomBgBase64=ce.target.result;};rd.readAsDataURL(f);}}
