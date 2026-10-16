@@ -130,6 +130,38 @@
         .gift-chat-count{font-size:30px;font-weight:900;color:#c084fc;text-shadow:0 2px 8px rgba(192,132,252,0.6)}
         .gift-chat-img{width:65px;height:65px;object-fit:contain;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.6))}
         .admin-badge{background:linear-gradient(135deg,#ef4444,#b91c1c);color:#fff;padding:6px 14px;border-radius:10px;font-size:12px;font-weight:bold;border:1px solid #f87171;cursor:pointer;display:none;margin-bottom:8px;box-shadow:0 0 15px rgba(239,68,68,0.5)}
+
+        /* ===== ChatC4: Big Animated Gifts CSS ===== */
+        #c4GiftOverlay {
+          position: fixed;
+          inset: 0;
+          z-index: 999999;
+          display: none;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+          pointer-events: none;
+          background: radial-gradient(
+            ellipse at center,
+            rgba(28, 20, 65, .48),
+            rgba(0, 0, 0, .80)
+          );
+        }
+        #c4GiftOverlay.c4-show { display: flex; animation: c4FadeIn .25s ease both; }
+        #c4GiftOverlay.c4-hide { animation: c4FadeOut .35s ease both; }
+        .c4-gift-scene { position: relative; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
+        .c4-gift-glow { position: absolute; width: min(90vw, 520px); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(255, 203, 70, .43), rgba(255, 149, 0, .13) 45%, transparent 72%); animation: c4Glow 1s ease-in-out infinite alternate; }
+        .c4-gift-art { position: relative; z-index: 2; font-size: clamp(150px, 47vw, 360px); line-height: 1; filter: drop-shadow(0 0 22px rgba(255, 198, 60, .8)); transform-origin: center; animation: c4GiftEntrance 3s cubic-bezier(.15,.8,.25,1) both; user-select: none; }
+        .c4-gift-spark { position: absolute; inset: 8%; border: 2px solid rgba(255, 211, 95, .45); border-radius: 50%; animation: c4Orbit 3s linear infinite; }
+        .c4-gift-spark::before, .c4-gift-spark::after { content: "✦"; position: absolute; color: #ffe89a; font-size: clamp(22px, 6vw, 48px); text-shadow: 0 0 18px #ffc52f; }
+        .c4-gift-spark::before { top: 8%; left: 12%; }
+        .c4-gift-spark::after { right: 8%; bottom: 12%; }
+        .c4-gift-label { position: absolute; bottom: 13%; color: #ffe5a0; font-size: 17px; font-weight: 900; letter-spacing: 2px; text-shadow: 0 0 15px #f59e0b; opacity: .85; }
+        @keyframes c4GiftEntrance { 0% { transform: scale(.05) rotate(-18deg); opacity: 0; } 18% { transform: scale(1.12) rotate(5deg); opacity: 1; } 30% { transform: scale(1) rotate(0); opacity: 1; } 78% { transform: scale(1.04); opacity: 1; } 100% { transform: scale(.82); opacity: 0; } }
+        @keyframes c4Glow { from { transform: scale(.86); opacity: .65; } to { transform: scale(1.12); opacity: 1; } }
+        @keyframes c4Orbit { from { transform: rotate(0deg) scale(.85); } to { transform: rotate(360deg) scale(1.08); } }
+        @keyframes c4FadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes c4FadeOut { from { opacity: 1; } to { opacity: 0; } }
     </style>
 </head>
 <body>
@@ -522,7 +554,7 @@
             <h4 style="margin:0 0 4px 0;color:#c084fc;font-size:11px">🎁 هدايا الملف الشخصي</h4>
             <div id="visitedReceivedGiftsGrid" class="profile-gifts-grid"><div style="grid-column:span 3;text-align:center;color:#94a3b8;font-size:10px;padding:6px">لا توجد هدايا مستلمة</div></div>
         </div>
-        <div style="margin-top:8px;display:flex;gap:6px;justify-content:center">
+        <div style="margin-top:8px;display:flex;gap:6px;justify-center">
             <button id="visitedAddFriendBtn" class="action-btn btn-blue" style="padding:6px;font-size:11px;display:none" onclick="sendFriendRequestFromVisitedProfile()">إضافة صديق ➕</button>
             <button id="roomOwnerBanBtn" class="action-btn" style="background:#ef4444;color:#fff;padding:6px;font-size:11px;display:none" onclick="banUserFromRoom()">حظر من الغرفة 🚫</button>
         </div>
@@ -567,7 +599,6 @@
             <button class="gift-tab-btn" id="tabG4" onclick="switchGiftPane('p4')">👑 حصرية (16-20)</button>
         </div>
         
-        <!-- القسم الأول: الهدايا 1 إلى 5 -->
         <div id="pane1" class="gift-pane-content active">
             <div class="gift-card-box" id="g1" onclick="highlightGift('علم العراق 🇮🇶',100,'https://upload.wikimedia.org/wikipedia/commons/f/f6/Flag_of_Iraq.svg','g1')"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Flag_of_Iraq.svg" class="gift-icon-full" alt="علم"><div class="gift-price-num">100 🪙</div></div>
             <div class="gift-card-box" id="g2" onclick="highlightGift('وردة حمراء 🌹',25,'https://cdn-icons-png.flaticon.com/512/766/766155.png','g2')"><img src="https://cdn-icons-png.flaticon.com/512/766/766155.png" class="gift-icon-full" alt="وردة"><div class="gift-price-num">25 🪙</div></div>
@@ -576,7 +607,6 @@
             <div class="gift-card-box" id="g5" onclick="highlightGift('دراجة هوائية 🚲',15,'https://cdn-icons-png.flaticon.com/512/2972/2972185.png','g5')"><img src="https://cdn-icons-png.flaticon.com/512/2972/2972185.png" class="gift-icon-full" alt="دراجة"><div class="gift-price-num">15 🪙</div></div>
         </div>
 
-        <!-- القسم الثاني: الهدايا 6 إلى 10 -->
         <div id="pane2" class="gift-pane-content">
             <div class="gift-card-box" id="g6" onclick="highlightGift('قطة أليفة 🐱',15,'https://cdn-icons-png.flaticon.com/512/616/616430.png','g6')"><img src="https://cdn-icons-png.flaticon.com/512/616/616430.png" class="gift-icon-full" alt="قطة"><div class="gift-price-num">15 🪙</div></div>
             <div class="gift-card-box" id="g7" onclick="highlightGift('حلاوة ملونة 🍬',20,'https://cdn-icons-png.flaticon.com/512/3081/3081986.png','g7')"><img src="https://cdn-icons-png.flaticon.com/512/3081/3081986.png" class="gift-icon-full" alt="حلاوة"><div class="gift-price-num">20 🪙</div></div>
@@ -585,22 +615,24 @@
             <div class="gift-card-box" id="g10" onclick="highlightGift('تاج ملكي 👑',150,'https://cdn-icons-png.flaticon.com/512/3607/3607444.png','g10')"><img src="https://cdn-icons-png.flaticon.com/512/3607/3607444.png" class="gift-icon-full" alt="تاج"><div class="gift-price-num">150 🪙</div></div>
         </div>
 
-        <!-- القسم الثالث: الهدايا 11 إلى 15 -->
         <div id="pane3" class="gift-pane-content">
             <div class="gift-card-box" id="g11" onclick="highlightGift('قيثارة موسيقية 🎸',200,'https://cdn-icons-png.flaticon.com/512/3004/3004758.png','g11')"><img src="https://cdn-icons-png.flaticon.com/512/3004/3004758.png" class="gift-icon-full" alt="قيثارة"><div class="gift-price-num">200 🪙</div></div>
             <div class="gift-card-box" id="g12" onclick="highlightGift('كعكة عيد ميلاد 🎂',300,'https://cdn-icons-png.flaticon.com/512/3132/3132693.png','g12')"><img src="https://cdn-icons-png.flaticon.com/512/3132/3132693.png" class="gift-icon-full" alt="كعكة"><div class="gift-price-num">300 🪙</div></div>
             <div class="gift-card-box" id="g13" onclick="highlightGift('سماعات دي جي 🎧',400,'https://cdn-icons-png.flaticon.com/512/3076/3076986.png','g13')"><img src="https://cdn-icons-png.flaticon.com/512/3076/3076986.png" class="gift-icon-full" alt="سماعات"><div class="gift-price-num">400 🪙</div></div>
             <div class="gift-card-box" id="g14" onclick="highlightGift('خاتم ألماس 💍',500,'https://cdn-icons-png.flaticon.com/512/931/931945.png','g14')"><img src="https://cdn-icons-png.flaticon.com/512/931/931945.png" class="gift-icon-full" alt="خاتم"><div class="gift-price-num">500 🪙</div></div>
             <div class="gift-card-box" id="g15" onclick="highlightGift('دب قطبي 🧸',800,'https://cdn-icons-png.flaticon.com/512/3022/3022361.png','g15')"><img src="https://cdn-icons-png.flaticon.com/512/3022/3022361.png" class="gift-icon-full exclusive-gift-animated" alt="دب"><div class="gift-price-num">800 🪙</div></div>
+            <!-- هدية القصر تم إضافتها بداخل القسم الفاخر (p3) -->
+            <div class="gift-card-box" id="gPalace" onclick="highlightGift('القصر الملكي 🏰',5000,'palace','gPalace')"><span style="font-size:36px;display:block">🏰</span><div class="gift-price-num">5000 🪙</div></div>
         </div>
 
-        <!-- القسم الرابع: الهدايا 16 إلى 20 -->
         <div id="pane4" class="gift-pane-content">
             <div class="gift-card-box" id="g16" onclick="highlightGift('الأسد الملكي 🦁',1000,'https://cdn-icons-png.flaticon.com/512/616/616408.png','g16')"><img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="gift-icon-full exclusive-gift-animated" alt="أسد"><div class="gift-price-num">1000 🪙</div></div>
             <div class="gift-card-box" id="g17" onclick="highlightGift('سيارة فيراري 🏎️',1500,'https://cdn-icons-png.flaticon.com/512/741/741407.png','g17')"><img src="https://cdn-icons-png.flaticon.com/512/741/741407.png" class="gift-icon-full exclusive-gift-animated" alt="فيراري"><div class="gift-price-num">1500 🪙</div></div>
             <div class="gift-card-box" id="g18" onclick="highlightGift('فضاء حقيقي 🌌',1400,'https://cdn-icons-png.flaticon.com/512/3212/3212608.png','g18')"><img src="https://cdn-icons-png.flaticon.com/512/3212/3212608.png" class="gift-icon-full exclusive-gift-animated" alt="فضاء"><div class="gift-price-num">1400 🪙</div></div>
             <div class="gift-card-box" id="g19" onclick="highlightGift('ذئب بري 🐺',750,'https://cdn-icons-png.flaticon.com/512/616/616412.png','g19')"><img src="https://cdn-icons-png.flaticon.com/512/616/616412.png" class="gift-icon-full exclusive-gift-animated" alt="ذئب"><div class="gift-price-num">750 🪙</div></div>
             <div class="gift-card-box" id="g20" onclick="highlightGift('نرد الزار 🎲',150,'https://cdn-icons-png.flaticon.com/512/1041/1041888.png','g20')"><img src="https://cdn-icons-png.flaticon.com/512/1041/1041888.png" class="gift-icon-full exclusive-gift-animated" alt="نرد"><div class="gift-price-num">150 🪙</div></div>
+            <!-- هدية الطائرة تم إضافتها بداخل القسم الحصري (p4) -->
+            <div class="gift-card-box" id="gPlane" onclick="highlightGift('طائرة نفاثة ✈️',4000,'plane','gPlane')"><span style="font-size:36px;display:block">✈️</span><div class="gift-price-num">4000 🪙</div></div>
         </div>
 
         <div class="bottom-action-bar" id="giftSendActionBar"><button onclick="confirmSendPendingGift()" style="background:linear-gradient(135deg,#10b981,#059669);color:#fff;border:none;padding:6px 18px;border-radius:8px;font-size:12px;font-weight:bold;cursor:pointer;box-shadow:0 3px 10px rgba(16,185,129,0.4)">إرسال 🚀</button></div>
@@ -662,6 +694,16 @@
             <button onclick="closeWhatsappActionModal()" style="background:none;border:none;color:#ef4444;font-size:13px;cursor:pointer;margin-top:4px">إلغاء</button>
         </div>
     </div>
+</div>
+
+<!-- ===== ChatC4: Overlay Element for Big Animated Gifts ===== -->
+<div id="c4GiftOverlay" aria-hidden="true">
+  <div class="c4-gift-scene">
+    <div class="c4-gift-glow"></div>
+    <div class="c4-gift-spark"></div>
+    <div id="c4GiftArt" class="c4-gift-art">🏰</div>
+    <div id="c4GiftLabel" class="c4-gift-label">CHATC4</div>
+  </div>
 </div>
 
 <script>
@@ -847,7 +889,8 @@
     function claimDailyReward(){
         if(globalAppSettings.dailyCounterLocked&&currentUserKey!=='msaftwtn_gmail_com')return alert('⚠️ عذراً، العداد اليومي مقفل حالياً.');
         let now=new Date().getTime();if(now-(userData.lastSpinTime||0)<24*60*60*1000)return alert('⚠️ العداد مفعل مسبقاً! انتظر حتى ينتهي الوقت.');
-        let rPts=userData.activeCounterVal||100;if(rPts<=0)rPts=100;
+        let rPts=userData.activeCounterVal||0;
+        if(rPts<0) rPts=0;
         userData.points=(userData.points||0)+rPts;
         userData.gems=(userData.gems||0)+500;
         userData.lastSpinTime=now;
@@ -1062,7 +1105,12 @@
         let gC=document.getElementById(containerId);if(!gC)return;
         rtdb.ref(`profile_gifts/${userKey}`).on('value',snap=>{
             if(!snap.exists()){gC.innerHTML=`<div style="grid-column:span 3;text-align:center;color:#94a3b8;font-size:10px;padding:10px">لا توجد هدايا مستلمة بعد</div>`;return;}
-            let h='';snap.forEach(g=>{let gd=g.val();h+=`<div class="profile-gift-mini-card" title="${gd.giftName}"><img src="${gd.giftIcon}" class="profile-gift-mini-img" alt="هدية"><span class="profile-gift-mini-count">x${gd.count}</span></div>`;});
+            let h='';snap.forEach(g=>{
+                let gd=g.val();
+                let displayImg = (gd.giftIcon==='palace') ? '🏰' : (gd.giftIcon==='plane' ? '✈️' : `<img src="${gd.giftIcon}" class="profile-gift-mini-img" alt="هدية">`);
+                let isEmoji = (gd.giftIcon==='palace'||gd.giftIcon==='plane');
+                h+=`<div class="profile-gift-mini-card" title="${gd.giftName}">${isEmoji ? `<span style="font-size:24px">${displayImg}</span>` : displayImg}<span class="profile-gift-mini-count">x${gd.count}</span></div>`;
+            });
             gC.innerHTML=h;
         });
     }
@@ -1086,26 +1134,44 @@
         if(n)userData.name=n;if(b!==undefined)userData.bio=b.substring(0,60);if(base64Image)userData.avatar=base64Image;
         saveToDB().then(()=>{base64Image='';updateUI();alert('✅ تم حفظ التعديلات بنجاح!');}).catch(()=>alert('❌ حدث خطأ، حاول مجدداً.'));
     }
-    
-    // التعديل المطلوب: فحص حالة إغلاق سحب الأرباح وإظهار رسالة الإدارة
+
     function openWithdrawModal(){
-        if(globalAppSettings.withdrawLocked && currentUserKey !== 'msaftwtn_gmail_com' && currentEmail !== 'msaftwtn@gmail.com') {
-            return alert('⚠️ عذراً، ميزة سحب الأرباح مغلقة حالياً من قبل الإدارة.');
+        if(globalAppSettings.withdrawLocked && currentUserKey !== 'msaftwtn_gmail_com') {
+            return alert('⚠️ عذراً، خدمة سحب الأرباح مغلقة من قبل الإدارة حالياً.');
+        }
+        if(currentUserKey !== 'msaftwtn_gmail_com' && userData.lastWithdrawTime) {
+            let now = Date.now();
+            let tenDaysMs = 10 * 24 * 60 * 60 * 1000;
+            let elapsed = now - userData.lastWithdrawTime;
+            if(elapsed < tenDaysMs) {
+                let remainingDays = Math.ceil((tenDaysMs - elapsed) / (1000 * 60 * 60 * 24));
+                return alert(`⚠️ عذراً، نظام الأمان يمنع السحب المتكرر. يجب انقضاء 10 أيام كاملة بين كل طلب سحب وآخر. متبقي لديك حوالي ${remainingDays} أيام لتتمكن من السحب مجدداً.`);
+            }
         }
         document.getElementById('withdrawModal').style.display='flex';
     }
-    
     function closeWithdrawModal(){document.getElementById('withdrawModal').style.display='none';}
     function submitWithdrawal(){
-        if(globalAppSettings.withdrawLocked && currentUserKey !== 'msaftwtn_gmail_com' && currentEmail !== 'msaftwtn@gmail.com') {
-            return alert('⚠️ عذراً، ميزة سحب الأرباح مغلقة حالياً من قبل الإدارة.');
+        if(globalAppSettings.withdrawLocked && currentUserKey !== 'msaftwtn_gmail_com') {
+            closeWithdrawModal();
+            return alert('⚠️ عذراً، خدمة سحب الأرباح مغلقة من قبل الإدارة حالياً.');
+        }
+        if(currentUserKey !== 'msaftwtn_gmail_com' && userData.lastWithdrawTime) {
+            let now = Date.now();
+            let tenDaysMs = 10 * 24 * 60 * 60 * 1000;
+            let elapsed = now - userData.lastWithdrawTime;
+            if(elapsed < tenDaysMs) {
+                let remainingDays = Math.ceil((tenDaysMs - elapsed) / (1000 * 60 * 60 * 24));
+                closeWithdrawModal();
+                return alert(`⚠️ عذراً، نظام الأمان يمنع السحب المتكرر. متبقي لديك ${remainingDays} أيام لإتمام مدة الـ 10 أيام المفروضة.`);
+            }
         }
         let m=document.getElementById('withdrawMethod').value,acc=document.getElementById('withdrawAccount').value.trim(),amt=parseFloat(document.getElementById('withdrawAmount').value);
         if(!acc||isNaN(amt))return alert('⚠️ أدخل الحساب والمبلغ بشكل صحيح!');if(amt<10)return alert('⚠️ الحد الأدنى للسحب 10$!');
         if((userData.points||0)<10000)return alert('❌ رصيدك الحالي من النقاط لا يكفي لتقديم طلب السحب!');
-        if(userData.lastWithdrawTime&&(Date.now()-userData.lastWithdrawTime)<15*24*60*60*1000)return alert('⚠️ مسموح بالسحب مرة كل 15 يوماً.');
         rtdb.ref(`admin_withdrawals`).push({userKey:currentUserKey,userName:userData.name,userId:userData.customId,method:m,account:acc,amount:amt,timestamp:Date.now(),status:'pending'}).then(()=>{
-            userData.lastWithdrawTime=Date.now();saveToDB().then(()=>{closeWithdrawModal();alert('✅ تم تقديم طلب السحب للإدارة بنجاح.');});
+            userData.lastWithdrawTime=Date.now();
+            saveToDB().then(()=>{closeWithdrawModal();alert('✅ تم تقديم طلب السحب للإدارة بنجاح. (تم تفعيل قفل الـ 10 أيام القادمة بنجاح)');});
         });
     }
 
@@ -1171,7 +1237,15 @@
         });
     }
 
-    function adminToggleWithdrawFeature(){if(currentUserKey!=='msaftwtn_gmail_com')return;let ns=!globalAppSettings.withdrawLocked;rtdb.ref('app_settings').update({withdrawLocked:ns}).then(()=>alert(ns?'🔒 تم إغلاق سحب الأرباح.':'🔓 تم فتح سحب الأرباح.'));}
+    function adminToggleWithdrawFeature(){
+        if(currentUserKey!=='msaftwtn_gmail_com')return;
+        let ns=!globalAppSettings.withdrawLocked;
+        rtdb.ref('app_settings').update({withdrawLocked:ns}).then(()=>{
+            globalAppSettings.withdrawLocked = ns;
+            alert(ns ? '🔒 تم إغلاق سحب الأرباح بنجاح. سيظهر للمستخدمين الآن أن الخدمة مغلقة من الإدارة.' : '🔓 تم فتح سحب الأرباح وإتاحته للجميع.');
+        });
+    }
+
     function adminToggleDailyCounterFeature(){if(currentUserKey!=='msaftwtn_gmail_com')return;let ns=!globalAppSettings.dailyCounterLocked;rtdb.ref('app_settings').update({dailyCounterLocked:ns}).then(()=>alert(ns?'⏳ تم قفل العداد اليومي.':'⚡ تم فتح العداد اليومي.'));}
     
     function adminDeleteAgentFeature(){
@@ -1390,7 +1464,9 @@
                 let msg=m.val(),isMe=msg.sender===currentUserKey;
                 let del=(isMe||currentUserKey==='msaftwtn_gmail_com')?`<button class="msg-action-btn" onclick="deleteRoomMessage('${id}','${m.key}')">🗑️</button>`:'';
                 if(msg.isGift){
-                    h+=`<div style="display:flex;justify-content:center;margin:8px 0"><div class="gift-chat-card"><div class="gift-chat-header"><span class="gift-chat-sender">🦋 ${msg.senderName}</span><span class="gift-chat-target">» ${msg.targetName}</span></div><div class="gift-chat-body"><span class="gift-chat-count">1 x</span><img src="${msg.giftIcon||'https://cdn-icons-png.flaticon.com/512/2405/2405479.png'}" class="gift-chat-img" alt="هدية"></div></div></div>`;
+                    let giftDisplayImg = (msg.giftIcon==='palace') ? '🏰' : (msg.giftIcon==='plane' ? '✈️' : `<img src="${msg.giftIcon||'https://cdn-icons-png.flaticon.com/512/2405/2405479.png'}" class="gift-chat-img" alt="هدية">`);
+                    let isEmoji = (msg.giftIcon==='palace'||msg.giftIcon==='plane');
+                    h+=`<div style="display:flex;justify-content:center;margin:8px 0"><div class="gift-chat-card"><div class="gift-chat-header"><span class="gift-chat-sender">🦋 ${msg.senderName}</span><span class="gift-chat-target">» ${msg.targetName}</span></div><div class="gift-chat-body"><span class="gift-chat-count">1 x</span>${isEmoji ? `<span style="font-size:55px">${giftDisplayImg}</span>` : giftDisplayImg}</div></div></div>`;
                 }else{
                     let rep=`<button class="msg-action-btn" onclick="prepareReplyToMessage('${msg.senderName.replace(/'/g,"\\'")}')">🔃</button>`;
                     let gft=!isMe?`<button class="msg-action-btn" style="margin-left:6px" onclick="openUnifiedGiftBox('${msg.sender}','${msg.senderName.replace(/'/g,"\\'")}')">🎁</button>`:'';
@@ -1509,6 +1585,7 @@
                     Promise.all(promises).then(()=>{
                         rtdb.ref().update(up).then(()=>{
                             rtdb.ref(`room_messages/${isolatedActiveRoomId}`).push({sender:currentUserKey,senderName:sDat.name,targetKey:'all',targetName:'جميع الحضور (Broadcast)',giftName:gName,giftIcon:gIcon,isGift:true,timestamp:Date.now()});
+                            if(typeof window.showC4Gift==='function'&&(gIcon==='palace'||gIcon==='plane')){ window.showC4Gift(gIcon); }
                             closeUnifiedGiftBox();alert(`🎉 تم إرسال هدية (${gName}) بنجاح إلى جميع الحضور!`);
                         });
                     });
@@ -1524,6 +1601,7 @@
                             up[`profile_gifts/${selectedTargetUserKey}/${gk}`]={giftName:gName,giftIcon:gIcon,count:cnt+1};
                             rtdb.ref().update(up).then(()=>{
                                 rtdb.ref(`room_messages/${isolatedActiveRoomId}`).push({sender:currentUserKey,senderName:sDat.name,targetKey:selectedTargetUserKey,targetName:selectedTargetUserName,giftName:gName,giftIcon:gIcon,isGift:true,timestamp:Date.now()});
+                                if(typeof window.showC4Gift==='function'&&(gIcon==='palace'||gIcon==='plane')){ window.showC4Gift(gIcon); }
                                 closeUnifiedGiftBox();alert(`🎉 تم إرسال هدية (${gName}) بنجاح إلى ${selectedTargetUserName}!`);
                             });
                         });
@@ -1532,6 +1610,51 @@
             });
         });
     }
+
+    /* ===== ChatC4: Big Animated Gifts Script ===== */
+    (function () {
+      const overlay = document.getElementById("c4GiftOverlay");
+      const art = document.getElementById("c4GiftArt");
+      const label = document.getElementById("c4GiftLabel");
+
+      if (!overlay || !art || !label) return;
+
+      let hideTimer = null;
+      let resetTimer = null;
+
+      const C4_GIFTS = {
+        palace: { price: 5000, emoji: "🏰" },
+        plane:  { price: 4000, emoji: "✈️" }
+      };
+
+      window.showC4Gift = function (giftType) {
+        const gift = C4_GIFTS[giftType];
+        if (!gift) return;
+
+        clearTimeout(hideTimer);
+        clearTimeout(resetTimer);
+
+        overlay.classList.remove("c4-hide");
+        overlay.classList.remove("c4-show");
+
+        art.style.animation = "none";
+        void art.offsetWidth;
+
+        art.textContent = gift.emoji;
+        label.textContent = "CHATC4";
+
+        overlay.classList.add("c4-show");
+        art.style.animation = "";
+
+        hideTimer = setTimeout(function () {
+          overlay.classList.add("c4-hide");
+
+          resetTimer = setTimeout(function () {
+            overlay.classList.remove("c4-show", "c4-hide");
+          }, 380);
+        }, 3000);
+      };
+    })();
 </script>
 </body>
 </html>
