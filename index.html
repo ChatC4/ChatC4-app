@@ -50,7 +50,26 @@
         .card{background:rgba(30,30,30,0.65);border:1px solid rgba(255,255,255,0.08);padding:10px 12px;border-radius:14px;margin-bottom:8px;text-align:center}
         .new-header-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
         .user-greeting-box{display:flex;align-items:center;gap:10px}
-        .user-avatar-small{width:45px;height:45px;border-radius:50%;object-fit:cover;border:2px solid #c084fc;background:#111}
+        
+        /* حاوية الصورة الشخصية مع إطار الشات الداعم */
+        .avatar-frame-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 45px;
+            height: 45px;
+        }
+        .user-avatar-small{width:100%;height:100%;border-radius:50%;object-fit:cover;border:2px solid #c084fc;background:#111;position:relative;z-index:1}
+        .avatar-frame-overlay-small {
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            object-fit: contain;
+            z-index: 2;
+            pointer-events: none;
+        }
+
         .top-logout-btn{background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.4);color:#ef4444;padding:5px 12px;border-radius:12px;font-size:11px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:4px}
         .bell-icon-btn{background:none;border:none;font-size:20px;cursor:pointer;position:relative;padding:0;margin-left:8px}
         .top-profile-card{background:rgba(15,23,42,0.85);border:1px solid rgba(192,132,252,0.3);border-radius:16px;padding:12px;margin-bottom:10px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}
@@ -65,11 +84,11 @@
         .power-btn.green-pulse{background:#10b981;color:#fff}
         .assets-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
         .asset-box{background:rgba(30,41,59,0.7);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:10px;display:flex;align-items:center;justify-content:space-between}
-        .grid-buttons-custom{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
-        .grid-btn-item{background:rgba(30,41,59,0.75);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:10px 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;text-align:center;min-height:80px;box-shadow:0 6px 15px rgba(0,0,0,0.3);position:relative}
-        .grid-btn-item span{font-size:10px;color:#fff;font-weight:bold;margin-top:4px}
-        .grid-btn-item .icon-circle{font-size:20px}
-        .grid-btn-item .mini-arrow{position:absolute;bottom:4px;font-size:9px;color:#94a3b8}
+        .grid-buttons-custom{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
+        .grid-btn-item{background:rgba(30,41,59,0.75);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:8px 2px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;text-align:center;min-height:75px;box-shadow:0 6px 15px rgba(0,0,0,0.3);position:relative}
+        .grid-btn-item span{font-size:9px;color:#fff;font-weight:bold;margin-top:4px}
+        .grid-btn-item .icon-circle{font-size:18px}
+        .grid-btn-item .mini-arrow{position:absolute;bottom:2px;font-size:8px;color:#94a3b8}
         .bottom-nav-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:420px;background:rgba(15,23,42,0.95);backdrop-filter:blur(10px);border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-around;align-items:center;padding:8px 10px;z-index:999}
         .bottom-nav-item{display:flex;flex-direction:column;align-items:center;background:none;border:none;color:#94a3b8;font-size:10px;cursor:pointer;gap:2px}
         .bottom-nav-item.active{color:#c084fc}
@@ -90,7 +109,17 @@
         .counter-row{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.03);border:1px solid #1e293b;padding:10px;border-radius:8px;margin-bottom:6px;text-align:right}
         .profile-box{text-align:center;background:rgba(30,41,59,0.7);border:1px solid rgba(192,132,252,0.3);border-radius:16px;padding:15px;margin-bottom:10px}
         .large-avatar-container{position:relative;width:85px;height:85px;margin:0 auto 6px auto}
-        .large-avatar{width:85px;height:85px;border-radius:50%;object-fit:cover;display:block;background:#222;cursor:pointer}
+        .large-avatar{width:85px;height:85px;border-radius:50%;object-fit:cover;display:block;background:#222;cursor:pointer;position:relative;z-index:1}
+        .profile-frame-overlay {
+            position: absolute;
+            top: -12%;
+            left: -12%;
+            width: 124%;
+            height: 124%;
+            object-fit: contain;
+            z-index: 2;
+            pointer-events: none;
+        }
         .profile-gifts-section{margin-top:10px;text-align:right;border-top:1px solid rgba(255,255,255,0.1);padding-top:8px}
         .profile-gifts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;max-height:140px;overflow-y:auto;padding:2px}
         .profile-gift-mini-card{background:rgba(15,23,42,0.7);border:1px solid rgba(192,132,252,0.3);border-radius:8px;padding:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;height:55px}
@@ -130,6 +159,87 @@
         .gift-chat-count{font-size:30px;font-weight:900;color:#c084fc;text-shadow:0 2px 8px rgba(192,132,252,0.6)}
         .gift-chat-img{width:65px;height:65px;object-fit:contain;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.6))}
         .admin-badge{background:linear-gradient(135deg,#ef4444,#b91c1c);color:#fff;padding:6px 14px;border-radius:10px;font-size:12px;font-weight:bold;border:1px solid #f87171;cursor:pointer;display:none;margin-bottom:8px;box-shadow:0 0 15px rgba(239,68,68,0.5)}
+
+        /* تصميم متجر إطارات الصور المطابق للصورة 3x4 */
+        .frames-grid-store {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            max-height: 65vh;
+            overflow-y: auto;
+            padding: 4px;
+        }
+        .frame-card-item {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(192, 132, 252, 0.25);
+            border-radius: 12px;
+            padding: 8px 4px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+        .frame-card-item:hover {
+            border-color: #ffc107;
+            transform: scale(1.02);
+        }
+        .frame-preview-box {
+            position: relative;
+            width: 75px;
+            height: 75px;
+            margin: 0 auto 6px auto;
+        }
+        .frame-preview-avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #222;
+        }
+        .frame-preview-img {
+            position: absolute;
+            top: -12%;
+            left: -12%;
+            width: 124%;
+            height: 124%;
+            object-fit: contain;
+            pointer-events: none;
+        }
+        .frame-item-title {
+            font-size: 10px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 6px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+        }
+        .btn-buy-frame {
+            background: linear-gradient(135deg, #ffc107, #ff9800);
+            color: #000;
+            border: none;
+            padding: 5px 0;
+            width: 100%;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 11px;
+            cursor: pointer;
+        }
+        .btn-owned-frame {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid #10b981;
+            color: #10b981;
+            padding: 4px 0;
+            width: 100%;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -180,7 +290,10 @@
                     <div style="font-size:11px;color:#94a3b8">أهلاً بك</div>
                     <div style="font-size:13px;font-weight:bold;color:#fff" id="headerUserName">المستخدم</div>
                 </div>
-                <img id="headerUserAvatar" src="https://via.placeholder.com/45" class="user-avatar-small" alt="صورة">
+                <div class="avatar-frame-wrapper">
+                    <img id="headerUserAvatar" src="https://via.placeholder.com/45" class="user-avatar-small" alt="صورة">
+                    <img id="headerUserFrameOverlay" class="avatar-frame-overlay-small" src="" style="display:none;" alt="إطار">
+                </div>
             </div>
         </div>
         <div class="top-profile-card">
@@ -218,15 +331,33 @@
         </div>
         <div class="grid-buttons-custom">
             <div class="grid-btn-item" onclick="openWithdrawModal()"><div class="icon-circle">💸</div><span>سحب الأرباح</span><div class="mini-arrow">⌄</div></div>
-            <div class="grid-btn-item" onclick="navigateTo('leaderboardScreen')"><div class="icon-circle">🏆</div><span>التصنيف الأسبوعي</span><div class="mini-arrow">⌄</div></div>
-            <div class="grid-btn-item" onclick="navigateTo('agentsScreen')"><div class="icon-circle">👔</div><span>وكلاء ChatC4</span><div class="mini-arrow">⌄</div></div>
+            <div class="grid-btn-item" onclick="navigateTo('leaderboardScreen')"><div class="icon-circle">🏆</div><span>التصنيف</span><div class="mini-arrow">⌄</div></div>
+            <div class="grid-btn-item" onclick="navigateTo('agentsScreen')"><div class="icon-circle">👔</div><span>الوكلاء</span><div class="mini-arrow">⌄</div></div>
+            <div class="grid-btn-item" onclick="navigateTo('framesShopScreen')"><div class="icon-circle">🖼️</div><span>متجر الإطارات</span><div class="mini-arrow">⌄</div></div>
         </div>
         <div class="bottom-nav-bar">
             <button class="bottom-nav-item active" onclick="navigateTo('mainScreen')"><span>🏠</span><div>الرئيسية</div></button>
             <button class="bottom-nav-item" onclick="openIsolatedPublicRooms()"><span>💬</span><div>غرف الدردشة</div></button>
             <div class="bottom-nav-crown" onclick="navigateTo('wheelScreen')" title="عجلة الحظ">👑</div>
-            <button class="bottom-nav-item" onclick="navigateTo('friendsScreen')"><span>👥</span><div>الأصدقاء</div></button>
+            <button class="bottom-nav-item" onclick="navigateTo('framesShopScreen')"><span>🖼️</span><div>الإطارات</div></button>
             <button class="bottom-nav-item" onclick="navigateTo('shopScreen')"><span>🛒</span><div>المتجر</div></button>
+        </div>
+    </div>
+
+    <!-- شاشة متجر إطارات الصور الجديدة المطابقة 100% -->
+    <div id="framesShopScreen" class="screen-page">
+        <div class="top-nav">
+            <h3 style="margin:0;color:#ffc107;font-size:15px">🖼️ متجر إطارات الصور الفخمة</h3>
+            <button class="nav-btn back" onclick="navigateTo('mainScreen')">⬅️ الرئيسية</button>
+        </div>
+        <div class="card" style="text-align:right;background:rgba(15,23,42,0.85);border:1px solid rgba(255,193,7,0.3);margin-bottom:10px;padding:8px 12px">
+            <div style="font-size:11px;color:#ffc107;font-weight:bold"> سعر جميع الإطارات موحد: 250 نقطة 🪙</div>
+            <div style="font-size:10px;color:#cbd5e1">اضغط على أي إطار لشراءه وتفعيله مباشرة على صورتك الشخصية!</div>
+        </div>
+        <div class="card" style="padding:8px 4px">
+            <div class="frames-grid-store" id="framesShopGridContainer">
+                <!-- يتم التعبئة تلقائياً عبر JavaScript -->
+            </div>
         </div>
     </div>
 
@@ -323,7 +454,10 @@
             <button class="nav-btn back" onclick="navigateBackFromProfile()">⬅️ الرئيسية</button>
         </div>
         <div class="profile-box">
-            <div class="large-avatar-container" id="profileAvatarRingBox"><img id="avatarPreview" class="large-avatar" src="" alt="صورة" onclick="triggerImageUpload()" title="اضغط لتغيير الصورة الشخصية"></div>
+            <div class="large-avatar-container" id="profileAvatarRingBox">
+                <img id="avatarPreview" class="large-avatar" src="" alt="صورة" onclick="triggerImageUpload()" title="اضغط لتغيير الصورة الشخصية">
+                <img id="profileUserFrameOverlay" class="profile-frame-overlay" src="" style="display:none;" alt="إطار">
+            </div>
             <input type="file" id="hiddenImageInput" accept="image/*" style="display:none" onchange="previewImage(event)">
             <div style="margin-top:2px;margin-bottom:6px"><span id="displayUserIdProfile" style="color:#c084fc;font-size:12px;font-weight:bold">ID: ---</span></div>
             <input type="text" id="profileNameInput" class="input-box" placeholder="تعديل الاسم" style="margin-top:4px;margin-bottom:6px">
@@ -513,7 +647,10 @@
             <h4 style="margin:0;color:#c084fc;font-size:14px">👤 الملف الشخصي</h4>
             <button style="background:none;border:none;color:#ef4444;font-size:18px;cursor:pointer" onclick="closeUserProfileModal()">✖</button>
         </div>
-        <div class="large-avatar-container" style="margin:0 auto 4px auto"><img id="visitedUserAvatar" src="https://via.placeholder.com/85" style="width:85px;height:85px;border-radius:50%;object-fit:cover;display:block;background:#222" alt="صورة المستخدم"></div>
+        <div class="large-avatar-container" style="margin:0 auto 4px auto">
+            <img id="visitedUserAvatar" src="https://via.placeholder.com/85" style="width:85px;height:85px;border-radius:50%;object-fit:cover;display:block;background:#222" alt="صورة المستخدم">
+            <img id="visitedUserFrameOverlay" class="profile-frame-overlay" src="" style="display:none;" alt="إطار">
+        </div>
         <span id="visitedUserCustomId" style="color:#c084fc;font-size:12px;font-weight:bold;display:block;margin-bottom:4px">ID: ---</span>
         <div id="visitedUserBio" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:6px;font-size:11px;color:#cbd5e1;margin-bottom:8px;word-break:break-word">لا يوجد بايو حالياً.</div>
         <h3 id="visitedUserName" style="margin:0 0 2px 0;color:#fff;font-size:15px">اسم المستخدم</h3>
@@ -662,12 +799,29 @@
 
 <script>
     let currentEmail='',currentUserKey='',rtdb=null,auth=null;
-    let userData={points:0,gems:0,agentBag:0,lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,customId:'',name:'',avatar:'',bio:'',hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isAgent:false,isBanned:false,whatsapp:''};
+    let userData={points:0,gems:0,agentBag:0,lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,customId:'',name:'',avatar:'',bio:'',hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isAgent:false,isBanned:false,whatsapp:'',activeFrame:'',ownedFrames:{}};
     let base64Image='',activeChatFriendKey='',activeChatFriendName='',visitedProfileTargetKey='',timerInterval=null;
     let isolatedActiveRoomId='',currentRoomOccupantsCount=0,activeRoomCreatorKey='',globalAppSettings={withdrawLocked:false,dailyCounterLocked:false};
     let newRoomAvatarBase64='',newRoomBgBase64='',agentResidenceFrontBase64='',agentResidenceBackBase64='',agentNationalFrontBase64='',agentNationalBackBase64='';
     let currentReplyTarget=null,pendingSelectedGift=null,selectedTargetUserKey='all',selectedTargetUserName='الكل (عام)',totalWheelDegrees=0;
     let currentSelectedWhatsappPhone = '';
+
+    // بيانات الإطارات الـ 12 المطابقة للصورة (استبدل المسارات بأماكن صورك الشفافة الحقيقية)
+    const availableFramesData = [
+        { id: 'frame_lion', name: 'إطار الأسد الملكي', image: 'images/frame1.png' },
+        { id: 'frame_iraq', name: 'إطار علم العراق', image: 'images/frame2.png' },
+        { id: 'frame_gazelle', name: 'إطار الغزال الأخضر', image: 'images/frame3.png' },
+        { id: 'frame_car', name: 'إطار الوردي الرياضي', image: 'images/frame4.png' },
+        { id: 'frame_chatc4', name: 'إطار ChatC4', image: 'images/frame5.png' },
+        { id: 'frame_scorpion', name: 'إطار العقرب', image: 'images/frame6.png' },
+        { id: 'frame_ice', name: 'إطار قمم الجبال', image: 'images/frame7.png' },
+        { id: 'frame_snow', name: 'إطار صقيع الثلج', image: 'images/frame8.png' },
+        { id: 'frame_roses', name: 'إطار الورود الحمراء', image: 'images/frame9.png' },
+        { id: 'frame_money', name: 'إطار الأموال', image: 'images/frame10.png' },
+        { id: 'frame_falcon', name: 'إطار الصقر الذهبي', image: 'images/frame11.png' },
+        { id: 'frame_love', name: 'إطار العشاق', image: 'images/frame12.png' }
+    ];
+    const FRAME_PRICE = 250;
 
     window.addEventListener('load',()=>{
         try{
@@ -707,6 +861,7 @@
         const t=document.getElementById(screenId);if(t)t.classList.add('active');
         if(screenId==='friendsScreen')loadFriendSystem();
         if(screenId==='agentsScreen')loadApprovedAgentsList();
+        if(screenId==='framesShopScreen')renderFramesShopGrid();
         if(screenId==='profileScreen'){loadProfileReceivedGifts(currentUserKey,'profileReceivedGiftsGrid');let b=document.getElementById('profileBioInput');if(b)document.getElementById('bioCounter').innerText=`${b.value.length} / 60`;}
         if(screenId==='leaderboardScreen')loadLeaderboardData();
     }
@@ -752,7 +907,7 @@
         rtdb.ref('users/'+currentUserKey).once('value').then(check=>{
             if(check.exists()){btn.disabled=false;btn.innerText="تأكيد الحساب ✨";return alert("⚠️ مسجل سابقاً!");}
             let defaultName=email.split('@')[0],assignedId=(email==='msaftwtn@gmail.com')?'1':Math.floor(100000+Math.random()*900000).toString();
-            const newUser={name:defaultName,email:email,password:pass,customId:assignedId,points:0,gems:0,agentBag:0,bio:'',lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isAgent:false,isBanned:false,whatsapp:'',weeklyGiftsSent:0,weeklyWheelPoints:0,weeklyAgentPoints:0};
+            const newUser={name:defaultName,email:email,password:pass,customId:assignedId,points:0,gems:0,agentBag:0,bio:'',lastSpinTime:0,activeCounter:'لا يوجد',activeCounterVal:0,hasCreatedRoom:false,createdRoomId:'',lastWithdrawTime:0,isAgent:false,isBanned:false,whatsapp:'',weeklyGiftsSent:0,weeklyWheelPoints:0,weeklyAgentPoints:0,activeFrame:'',ownedFrames:{}};
             rtdb.ref('users/'+currentUserKey).set(newUser).then(()=>{
                 btn.disabled=false;btn.innerText="تأكيد الحساب ✨";currentEmail=email;
                 try{localStorage.setItem('dinarUserKey',currentUserKey);}catch(e){}
@@ -792,6 +947,21 @@
         if(bioInput){bioInput.value=userData.bio||'';document.getElementById('bioCounter').innerText=`${bioInput.value.length} / 60`;}
         let av=userData.avatar?userData.avatar:'https://via.placeholder.com/45';
         document.getElementById('headerUserAvatar').src=av;let avPrev=document.getElementById('avatarPreview');if(avPrev)avPrev.src=av;
+        
+        // تحديث إطار المستخدم الحالي
+        let hFrame = document.getElementById('headerUserFrameOverlay');
+        let pFrame = document.getElementById('profileUserFrameOverlay');
+        if(userData.activeFrame) {
+            let fObj = availableFramesData.find(f=>f.id===userData.activeFrame);
+            if(fObj) {
+                if(hFrame) { hFrame.src = fObj.image; hFrame.style.display = 'block'; }
+                if(pFrame) { pFrame.src = fObj.image; pFrame.style.display = 'block'; }
+            }
+        } else {
+            if(hFrame) hFrame.style.display = 'none';
+            if(pFrame) pFrame.style.display = 'none';
+        }
+
         let cVal=userData.activeCounterVal||0;
         document.getElementById('activeCounterInfo').innerText=cVal>0?`${cVal.toLocaleString()} نقطة يومياً`:(userData.activeCounter||'لا يوجد');
         let agentBadge=document.getElementById('agentStatusBadge');if(agentBadge)agentBadge.style.display=userData.isAgent?'block':'none';
@@ -806,6 +976,71 @@
             }
         }
     }
+
+    // دوال وديكورات متجر الإطارات
+    function renderFramesShopGrid(){
+        const container = document.getElementById('framesShopGridContainer');
+        if(!container) return;
+        container.innerHTML = '';
+
+        const userAvatar = userData.avatar ? userData.avatar : 'https://via.placeholder.com/85';
+        const owned = userData.ownedFrames || {};
+
+        availableFramesData.forEach(frame => {
+            const isOwned = owned[frame.id] === true;
+            const isActive = userData.activeFrame === frame.id;
+
+            const card = document.createElement('div');
+            card.className = 'frame-card-item';
+            
+            let btnHtml = '';
+            if(isActive) {
+                btnHtml = `<button class="btn-owned-frame" style="background:#10b981;color:#fff">مُفعل حالياً ✔️</button>`;
+            } else if(isOwned) {
+                btnHtml = `<button class="btn-owned-frame" onclick="useFrame('${frame.id}')">تفعيل الإطار 🎯</button>`;
+            } else {
+                btnHtml = `<button class="btn-buy-frame" onclick="buyFrame('${frame.id}', '${frame.name}')">شراء (250) 🪙</button>`;
+            }
+
+            card.innerHTML = `
+                <div class="frame-preview-box">
+                    <img src="${userAvatar}" class="frame-preview-avatar" alt="معاينة الصورة">
+                    <img src="${frame.image}" class="frame-preview-img" alt="${frame.name}">
+                </div>
+                <div class="frame-item-title">${frame.name}</div>
+                ${btnHtml}
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function buyFrame(frameId, frameName) {
+        let curPts = userData.points || 0;
+        if(curPts < FRAME_PRICE) return alert(`❌ عذراً! رصيدك (${curPts} نقطة) لا يكفي لشراء الإطار (يلزم 250 نقطة).`);
+
+        if(confirm(`هل ترغب في شراء وتفعيل "${frameName}" مقابل 250 نقطة؟`)) {
+            userData.points -= FRAME_PRICE;
+            if(!userData.ownedFrames) userData.ownedFrames = {};
+            userData.ownedFrames[frameId] = true;
+            userData.activeFrame = frameId;
+
+            saveToDB().then(()=>{
+                updateUI();
+                renderFramesShopGrid();
+                alert(`🎉 مبروك! تم شراء "${frameName}" وتفعيله بنجاح على صورتك الشخصية!`);
+            });
+        }
+    }
+
+    function useFrame(frameId) {
+        userData.activeFrame = frameId;
+        saveToDB().then(()=>{
+            updateUI();
+            renderFramesShopGrid();
+            alert('✨ تم تفعيل الإطار على بروفايلك بنجاح!');
+        });
+    }
+
     function saveToDB(){
         if(!currentUserKey||!rtdb)return Promise.resolve();
         if((userData.points<0||userData.gems<0||userData.agentBag<0)&&currentUserKey!=='msaftwtn_gmail_com'){
@@ -840,7 +1075,6 @@
         }).catch(()=>alert("❌ حدث خطأ، حاول مجدداً."));
     }
 
-    // [تم التعديل والتحديث هنا بنجاح] العداد اليومي يعطي 500 جوهرة و 0 نقطة للمستخدم العادي، وحقاً كاملاً لمشتري العداد
     function claimDailyReward(){
         if(globalAppSettings.dailyCounterLocked&&currentUserKey!=='msaftwtn_gmail_com')return alert('⚠️ عذراً، العداد اليومي مقفل حالياً.');
         let now=new Date().getTime();if(now-(userData.lastSpinTime||0)<24*60*60*1000)return alert('⚠️ العداد مفعل مسبقاً! انتظر حتى ينتهي الوقت.');
@@ -1036,6 +1270,16 @@
             document.getElementById('visitedUserName').innerText=u.name||'مستخدم';
             document.getElementById('visitedUserCustomId').innerText=`ID: ${u.customId||'---'}`;
             document.getElementById('visitedUserAvatar').src=u.avatar?u.avatar:'https://via.placeholder.com/85';
+            
+            // إظهار إطار المستخدم المزار إذا كان لديه إطار مفعل
+            let vFrame = document.getElementById('visitedUserFrameOverlay');
+            if(u.activeFrame) {
+                let fObj = availableFramesData.find(f=>f.id===u.activeFrame);
+                if(fObj && vFrame) { vFrame.src = fObj.image; vFrame.style.display = 'block'; }
+            } else if(vFrame) {
+                vFrame.style.display = 'none';
+            }
+
             document.getElementById('visitedUserBio').innerText=u.bio?u.bio:'لا يوجد بايو حالياً.';
             let vb=document.getElementById('visitedAgentBadge');vb.style.display=u.isAgent?'block':'none';
             loadProfileReceivedGifts(targetKey,'visitedReceivedGiftsGrid');
