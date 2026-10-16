@@ -1196,7 +1196,16 @@
         });
     }
 
-    function adminToggleWithdrawFeature(){if(currentUserKey!=='msaftwtn_gmail_com')return;let ns=!globalAppSettings.withdrawLocked;rtdb.ref('app_settings').update({withdrawLocked:ns}).then(()=>alert(ns?'🔒 تم إغلاق سحب الأرباح وتنبيه المستخدمين بأنها مغلقة من الإدارة.':'🔓 تم فتح سحب الأرباح.'));}
+    // [تم الإصلاح هنا] دالة الإدارة المسؤولة عن قفل/فتح سحب الأرباح وتحديث قاعدة البيانات بالحال
+    function adminToggleWithdrawFeature(){
+        if(currentUserKey!=='msaftwtn_gmail_com')return;
+        let ns=!globalAppSettings.withdrawLocked;
+        rtdb.ref('app_settings').update({withdrawLocked:ns}).then(()=>{
+            globalAppSettings.withdrawLocked = ns;
+            alert(ns ? '🔒 تم إغلاق سحب الأرباح بنجاح. سيظهر للمستخدمين الآن أن الخدمة مغلقة من الإدارة.' : '🔓 تم فتح سحب الأرباح وإتاحته للجميع.');
+        });
+    }
+
     function adminToggleDailyCounterFeature(){if(currentUserKey!=='msaftwtn_gmail_com')return;let ns=!globalAppSettings.dailyCounterLocked;rtdb.ref('app_settings').update({dailyCounterLocked:ns}).then(()=>alert(ns?'⏳ تم قفل العداد اليومي.':'⚡ تم فتح العداد اليومي.'));}
     
     function adminDeleteAgentFeature(){
