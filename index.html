@@ -840,10 +840,12 @@
         }).catch(()=>alert("❌ حدث خطأ، حاول مجدداً."));
     }
 
+    // [تم التعديل والتحديث هنا بنجاح] العداد اليومي يعطي 500 جوهرة و 0 نقطة للمستخدم العادي، وحقاً كاملاً لمشتري العداد
     function claimDailyReward(){
         if(globalAppSettings.dailyCounterLocked&&currentUserKey!=='msaftwtn_gmail_com')return alert('⚠️ عذراً، العداد اليومي مقفل حالياً.');
         let now=new Date().getTime();if(now-(userData.lastSpinTime||0)<24*60*60*1000)return alert('⚠️ العداد مفعل مسبقاً! انتظر حتى ينتهي الوقت.');
-        let rPts=userData.activeCounterVal||100;if(rPts<=0)rPts=100;
+        let rPts=userData.activeCounterVal||0;
+        if(rPts<0) rPts=0;
         userData.points=(userData.points||0)+rPts;
         userData.gems=(userData.gems||0)+500;
         userData.lastSpinTime=now;
@@ -1083,36 +1085,27 @@
         saveToDB().then(()=>{base64Image='';updateUI();alert('✅ تم حفظ التعديلات بنجاح!');}).catch(()=>alert('❌ حدث خطأ، حاول مجدداً.'));
     }
 
-    // زر فتح السحب: يفحص فوراً وبشكل حازم إذا كانت الإدارة أغلقت السحب ليرفض الفتح فوراً مع ظهور التنبيه المطلوب
     function openWithdrawModal(){
         if(globalAppSettings.withdrawLocked && currentUserKey !== 'msaftwtn_gmail_com') {
             return alert('⚠️ عذراً، خدمة سحب الأرباح مغلقة من قبل الإدارة حالياً.');
         }
-        
-        // التحقق الصارم من فترة الـ 10 أيام للمستخدم العادي
         if(currentUserKey !== 'msaftwtn_gmail_com' && userData.lastWithdrawTime) {
             let now = Date.now();
-            let tenDaysMs = 10 * 24 * 60 * 60 * 1000; // 10 أيام بالمللي ثانية ضبطاً
+            let tenDaysMs = 10 * 24 * 60 * 60 * 1000;
             let elapsed = now - userData.lastWithdrawTime;
             if(elapsed < tenDaysMs) {
                 let remainingDays = Math.ceil((tenDaysMs - elapsed) / (1000 * 60 * 60 * 24));
                 return alert(`⚠️ عذراً، نظام الأمان يمنع السحب المتكرر. يجب انقضاء 10 أيام كاملة بين كل طلب سحب وآخر. متبقي لديك حوالي ${remainingDays} أيام لتتمكن من السحب مجدداً.`);
             }
         }
-        
         document.getElementById('withdrawModal').style.display='flex';
     }
-    
     function closeWithdrawModal(){document.getElementById('withdrawModal').style.display='none';}
-    
     function submitWithdrawal(){
-        // فحص الإدارة أولاً لتجنب إكمال الطلب إذا اغلقته الإدارة أثناء تصفحه
         if(globalAppSettings.withdrawLocked && currentUserKey !== 'msaftwtn_gmail_com') {
             closeWithdrawModal();
             return alert('⚠️ عذراً، خدمة سحب الأرباح مغلقة من قبل الإدارة حالياً.');
         }
-
-        // فحص إضافي للـ 10 أيام عند محاولة التأكيد
         if(currentUserKey !== 'msaftwtn_gmail_com' && userData.lastWithdrawTime) {
             let now = Date.now();
             let tenDaysMs = 10 * 24 * 60 * 60 * 1000;
@@ -1123,11 +1116,9 @@
                 return alert(`⚠️ عذراً، نظام الأمان يمنع السحب المتكرر. متبقي لديك ${remainingDays} أيام لإتمام مدة الـ 10 أيام المفروضة.`);
             }
         }
-
         let m=document.getElementById('withdrawMethod').value,acc=document.getElementById('withdrawAccount').value.trim(),amt=parseFloat(document.getElementById('withdrawAmount').value);
         if(!acc||isNaN(amt))return alert('⚠️ أدخل الحساب والمبلغ بشكل صحيح!');if(amt<10)return alert('⚠️ الحد الأدنى للسحب 10$!');
         if((userData.points||0)<10000)return alert('❌ رصيدك الحالي من النقاط لا يكفي لتقديم طلب السحب!');
-        
         rtdb.ref(`admin_withdrawals`).push({userKey:currentUserKey,userName:userData.name,userId:userData.customId,method:m,account:acc,amount:amt,timestamp:Date.now(),status:'pending'}).then(()=>{
             userData.lastWithdrawTime=Date.now();
             saveToDB().then(()=>{closeWithdrawModal();alert('✅ تم تقديم طلب السحب للإدارة بنجاح. (تم تفعيل قفل الـ 10 أيام القادمة بنجاح)');});
@@ -1196,7 +1187,6 @@
         });
     }
 
-    // [تم الإصلاح هنا] دالة الإدارة المسؤولة عن قفل/فتح سحب الأرباح وتحديث قاعدة البيانات بالحال
     function adminToggleWithdrawFeature(){
         if(currentUserKey!=='msaftwtn_gmail_com')return;
         let ns=!globalAppSettings.withdrawLocked;
