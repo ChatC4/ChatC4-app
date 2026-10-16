@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+here<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -522,7 +522,7 @@
             <h4 style="margin:0 0 4px 0;color:#c084fc;font-size:11px">🎁 هدايا الملف الشخصي</h4>
             <div id="visitedReceivedGiftsGrid" class="profile-gifts-grid"><div style="grid-column:span 3;text-align:center;color:#94a3b8;font-size:10px;padding:6px">لا توجد هدايا مستلمة</div></div>
         </div>
-        <div style="margin-top:8px;display:flex;gap:6px;justify-center">
+        <div style="margin-top:8px;display:flex;gap:6px;justify-content:center">
             <button id="visitedAddFriendBtn" class="action-btn btn-blue" style="padding:6px;font-size:11px;display:none" onclick="sendFriendRequestFromVisitedProfile()">إضافة صديق ➕</button>
             <button id="roomOwnerBanBtn" class="action-btn" style="background:#ef4444;color:#fff;padding:6px;font-size:11px;display:none" onclick="banUserFromRoom()">حظر من الغرفة 🚫</button>
         </div>
@@ -567,6 +567,7 @@
             <button class="gift-tab-btn" id="tabG4" onclick="switchGiftPane('p4')">👑 حصرية (16-20)</button>
         </div>
         
+        <!-- القسم الأول: الهدايا 1 إلى 5 -->
         <div id="pane1" class="gift-pane-content active">
             <div class="gift-card-box" id="g1" onclick="highlightGift('علم العراق 🇮🇶',100,'https://upload.wikimedia.org/wikipedia/commons/f/f6/Flag_of_Iraq.svg','g1')"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Flag_of_Iraq.svg" class="gift-icon-full" alt="علم"><div class="gift-price-num">100 🪙</div></div>
             <div class="gift-card-box" id="g2" onclick="highlightGift('وردة حمراء 🌹',25,'https://cdn-icons-png.flaticon.com/512/766/766155.png','g2')"><img src="https://cdn-icons-png.flaticon.com/512/766/766155.png" class="gift-icon-full" alt="وردة"><div class="gift-price-num">25 🪙</div></div>
@@ -575,6 +576,7 @@
             <div class="gift-card-box" id="g5" onclick="highlightGift('دراجة هوائية 🚲',15,'https://cdn-icons-png.flaticon.com/512/2972/2972185.png','g5')"><img src="https://cdn-icons-png.flaticon.com/512/2972/2972185.png" class="gift-icon-full" alt="دراجة"><div class="gift-price-num">15 🪙</div></div>
         </div>
 
+        <!-- القسم الثاني: الهدايا 6 إلى 10 -->
         <div id="pane2" class="gift-pane-content">
             <div class="gift-card-box" id="g6" onclick="highlightGift('قطة أليفة 🐱',15,'https://cdn-icons-png.flaticon.com/512/616/616430.png','g6')"><img src="https://cdn-icons-png.flaticon.com/512/616/616430.png" class="gift-icon-full" alt="قطة"><div class="gift-price-num">15 🪙</div></div>
             <div class="gift-card-box" id="g7" onclick="highlightGift('حلاوة ملونة 🍬',20,'https://cdn-icons-png.flaticon.com/512/3081/3081986.png','g7')"><img src="https://cdn-icons-png.flaticon.com/512/3081/3081986.png" class="gift-icon-full" alt="حلاوة"><div class="gift-price-num">20 🪙</div></div>
@@ -583,6 +585,7 @@
             <div class="gift-card-box" id="g10" onclick="highlightGift('تاج ملكي 👑',150,'https://cdn-icons-png.flaticon.com/512/3607/3607444.png','g10')"><img src="https://cdn-icons-png.flaticon.com/512/3607/3607444.png" class="gift-icon-full" alt="تاج"><div class="gift-price-num">150 🪙</div></div>
         </div>
 
+        <!-- القسم الثالث: الهدايا 11 إلى 15 -->
         <div id="pane3" class="gift-pane-content">
             <div class="gift-card-box" id="g11" onclick="highlightGift('قيثارة موسيقية 🎸',200,'https://cdn-icons-png.flaticon.com/512/3004/3004758.png','g11')"><img src="https://cdn-icons-png.flaticon.com/512/3004/3004758.png" class="gift-icon-full" alt="قيثارة"><div class="gift-price-num">200 🪙</div></div>
             <div class="gift-card-box" id="g12" onclick="highlightGift('كعكة عيد ميلاد 🎂',300,'https://cdn-icons-png.flaticon.com/512/3132/3132693.png','g12')"><img src="https://cdn-icons-png.flaticon.com/512/3132/3132693.png" class="gift-icon-full" alt="كعكة"><div class="gift-price-num">300 🪙</div></div>
@@ -591,6 +594,7 @@
             <div class="gift-card-box" id="g15" onclick="highlightGift('دب قطبي 🧸',800,'https://cdn-icons-png.flaticon.com/512/3022/3022361.png','g15')"><img src="https://cdn-icons-png.flaticon.com/512/3022/3022361.png" class="gift-icon-full exclusive-gift-animated" alt="دب"><div class="gift-price-num">800 🪙</div></div>
         </div>
 
+        <!-- القسم الرابع: الهدايا 16 إلى 20 -->
         <div id="pane4" class="gift-pane-content">
             <div class="gift-card-box" id="g16" onclick="highlightGift('الأسد الملكي 🦁',1000,'https://cdn-icons-png.flaticon.com/512/616/616408.png','g16')"><img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="gift-icon-full exclusive-gift-animated" alt="أسد"><div class="gift-price-num">1000 🪙</div></div>
             <div class="gift-card-box" id="g17" onclick="highlightGift('سيارة فيراري 🏎️',1500,'https://cdn-icons-png.flaticon.com/512/741/741407.png','g17')"><img src="https://cdn-icons-png.flaticon.com/512/741/741407.png" class="gift-icon-full exclusive-gift-animated" alt="فيراري"><div class="gift-price-num">1500 🪙</div></div>
@@ -840,12 +844,10 @@
         }).catch(()=>alert("❌ حدث خطأ، حاول مجدداً."));
     }
 
-    // [تم التعديل والتحديث هنا بنجاح] العداد اليومي يعطي 500 جوهرة و 0 نقطة للمستخدم العادي، وحقاً كاملاً لمشتري العداد
     function claimDailyReward(){
         if(globalAppSettings.dailyCounterLocked&&currentUserKey!=='msaftwtn_gmail_com')return alert('⚠️ عذراً، العداد اليومي مقفل حالياً.');
         let now=new Date().getTime();if(now-(userData.lastSpinTime||0)<24*60*60*1000)return alert('⚠️ العداد مفعل مسبقاً! انتظر حتى ينتهي الوقت.');
-        let rPts=userData.activeCounterVal||0;
-        if(rPts<0) rPts=0;
+        let rPts=userData.activeCounterVal||100;if(rPts<=0)rPts=100;
         userData.points=(userData.points||0)+rPts;
         userData.gems=(userData.gems||0)+500;
         userData.lastSpinTime=now;
@@ -1084,44 +1086,26 @@
         if(n)userData.name=n;if(b!==undefined)userData.bio=b.substring(0,60);if(base64Image)userData.avatar=base64Image;
         saveToDB().then(()=>{base64Image='';updateUI();alert('✅ تم حفظ التعديلات بنجاح!');}).catch(()=>alert('❌ حدث خطأ، حاول مجدداً.'));
     }
-
+    
+    // التعديل المطلوب: فحص حالة إغلاق سحب الأرباح وإظهار رسالة الإدارة
     function openWithdrawModal(){
-        if(globalAppSettings.withdrawLocked && currentUserKey !== 'msaftwtn_gmail_com') {
-            return alert('⚠️ عذراً، خدمة سحب الأرباح مغلقة من قبل الإدارة حالياً.');
-        }
-        if(currentUserKey !== 'msaftwtn_gmail_com' && userData.lastWithdrawTime) {
-            let now = Date.now();
-            let tenDaysMs = 10 * 24 * 60 * 60 * 1000;
-            let elapsed = now - userData.lastWithdrawTime;
-            if(elapsed < tenDaysMs) {
-                let remainingDays = Math.ceil((tenDaysMs - elapsed) / (1000 * 60 * 60 * 24));
-                return alert(`⚠️ عذراً، نظام الأمان يمنع السحب المتكرر. يجب انقضاء 10 أيام كاملة بين كل طلب سحب وآخر. متبقي لديك حوالي ${remainingDays} أيام لتتمكن من السحب مجدداً.`);
-            }
+        if(globalAppSettings.withdrawLocked && currentUserKey !== 'msaftwtn_gmail_com' && currentEmail !== 'msaftwtn@gmail.com') {
+            return alert('⚠️ عذراً، ميزة سحب الأرباح مغلقة حالياً من قبل الإدارة.');
         }
         document.getElementById('withdrawModal').style.display='flex';
     }
+    
     function closeWithdrawModal(){document.getElementById('withdrawModal').style.display='none';}
     function submitWithdrawal(){
-        if(globalAppSettings.withdrawLocked && currentUserKey !== 'msaftwtn_gmail_com') {
-            closeWithdrawModal();
-            return alert('⚠️ عذراً، خدمة سحب الأرباح مغلقة من قبل الإدارة حالياً.');
-        }
-        if(currentUserKey !== 'msaftwtn_gmail_com' && userData.lastWithdrawTime) {
-            let now = Date.now();
-            let tenDaysMs = 10 * 24 * 60 * 60 * 1000;
-            let elapsed = now - userData.lastWithdrawTime;
-            if(elapsed < tenDaysMs) {
-                let remainingDays = Math.ceil((tenDaysMs - elapsed) / (1000 * 60 * 60 * 24));
-                closeWithdrawModal();
-                return alert(`⚠️ عذراً، نظام الأمان يمنع السحب المتكرر. متبقي لديك ${remainingDays} أيام لإتمام مدة الـ 10 أيام المفروضة.`);
-            }
+        if(globalAppSettings.withdrawLocked && currentUserKey !== 'msaftwtn_gmail_com' && currentEmail !== 'msaftwtn@gmail.com') {
+            return alert('⚠️ عذراً، ميزة سحب الأرباح مغلقة حالياً من قبل الإدارة.');
         }
         let m=document.getElementById('withdrawMethod').value,acc=document.getElementById('withdrawAccount').value.trim(),amt=parseFloat(document.getElementById('withdrawAmount').value);
         if(!acc||isNaN(amt))return alert('⚠️ أدخل الحساب والمبلغ بشكل صحيح!');if(amt<10)return alert('⚠️ الحد الأدنى للسحب 10$!');
         if((userData.points||0)<10000)return alert('❌ رصيدك الحالي من النقاط لا يكفي لتقديم طلب السحب!');
+        if(userData.lastWithdrawTime&&(Date.now()-userData.lastWithdrawTime)<15*24*60*60*1000)return alert('⚠️ مسموح بالسحب مرة كل 15 يوماً.');
         rtdb.ref(`admin_withdrawals`).push({userKey:currentUserKey,userName:userData.name,userId:userData.customId,method:m,account:acc,amount:amt,timestamp:Date.now(),status:'pending'}).then(()=>{
-            userData.lastWithdrawTime=Date.now();
-            saveToDB().then(()=>{closeWithdrawModal();alert('✅ تم تقديم طلب السحب للإدارة بنجاح. (تم تفعيل قفل الـ 10 أيام القادمة بنجاح)');});
+            userData.lastWithdrawTime=Date.now();saveToDB().then(()=>{closeWithdrawModal();alert('✅ تم تقديم طلب السحب للإدارة بنجاح.');});
         });
     }
 
@@ -1187,15 +1171,7 @@
         });
     }
 
-    function adminToggleWithdrawFeature(){
-        if(currentUserKey!=='msaftwtn_gmail_com')return;
-        let ns=!globalAppSettings.withdrawLocked;
-        rtdb.ref('app_settings').update({withdrawLocked:ns}).then(()=>{
-            globalAppSettings.withdrawLocked = ns;
-            alert(ns ? '🔒 تم إغلاق سحب الأرباح بنجاح. سيظهر للمستخدمين الآن أن الخدمة مغلقة من الإدارة.' : '🔓 تم فتح سحب الأرباح وإتاحته للجميع.');
-        });
-    }
-
+    function adminToggleWithdrawFeature(){if(currentUserKey!=='msaftwtn_gmail_com')return;let ns=!globalAppSettings.withdrawLocked;rtdb.ref('app_settings').update({withdrawLocked:ns}).then(()=>alert(ns?'🔒 تم إغلاق سحب الأرباح.':'🔓 تم فتح سحب الأرباح.'));}
     function adminToggleDailyCounterFeature(){if(currentUserKey!=='msaftwtn_gmail_com')return;let ns=!globalAppSettings.dailyCounterLocked;rtdb.ref('app_settings').update({dailyCounterLocked:ns}).then(()=>alert(ns?'⏳ تم قفل العداد اليومي.':'⚡ تم فتح العداد اليومي.'));}
     
     function adminDeleteAgentFeature(){
