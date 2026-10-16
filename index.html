@@ -74,7 +74,6 @@
         .bottom-nav-item{display:flex;flex-direction:column;align-items:center;background:none;border:none;color:#94a3b8;font-size:10px;cursor:pointer;gap:2px}
         .bottom-nav-item.active{color:#c084fc}
         .bottom-nav-item span{font-size:16px}
-        /* تعديل النقطة 1: استبدال التاج بقرص ملون للأيقونة الخارجية للعجلة */
         .bottom-nav-wheel-circle{width:42px;height:42px;border-radius:50%;background:conic-gradient(#ef4444 0deg 60deg,#3b82f6 60deg 120deg,#10b981 120deg 180deg,#9333ea 180deg 240deg,#8b5cf6 240deg 300deg,#ec4899 300deg 360deg);border:2px solid #c084fc;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;margin-top:-16px;box-shadow:0 4px 15px rgba(147,51,234,0.6);cursor:pointer}
         button.action-btn{width:100%;padding:10px;border:none;border-radius:9px;font-weight:bold;font-size:12px;cursor:pointer}
         .btn-gold{background:linear-gradient(135deg,#9333ea,#7e22ce);color:#fff}
@@ -132,11 +131,9 @@
         .gift-chat-img{width:65px;height:65px;object-fit:contain;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.6))}
         .admin-badge{background:linear-gradient(135deg,#ef4444,#b91c1c);color:#fff;padding:6px 14px;border-radius:10px;font-size:12px;font-weight:bold;border:1px solid #f87171;cursor:pointer;display:none;margin-bottom:8px;box-shadow:0 0 15px rgba(239,68,68,0.5)}
 
-        /* تنسيق حركة السحب والرد في الرسائل (النقطة 4) */
         .chat-msg-row { position: relative; overflow: hidden; touch-action: pan-y; }
         .chat-bubble-swipe { transition: transform 0.2s ease; }
 
-        /* CSS الهدايا المتحركة */
         #c4GiftOverlay {
           position: fixed;
           inset: 0;
@@ -261,7 +258,6 @@
         <div class="bottom-nav-bar">
             <button class="bottom-nav-item active" onclick="navigateTo('mainScreen')"><span>🏠</span><div>الرئيسية</div></button>
             <button class="bottom-nav-item" onclick="openIsolatedPublicRooms()"><span>💬</span><div>غرف الدردشة</div></button>
-            <!-- النقطة 1: أيقونة عجلة الحظ الخارجية أصبحت قرصاً ملوناً بدلاً من التاج -->
             <div class="bottom-nav-wheel-circle" onclick="navigateTo('wheelScreen')" title="عجلة الحظ">🎡</div>
             <button class="bottom-nav-item" onclick="navigateTo('friendsScreen')"><span>👥</span><div>الأصدقاء</div></button>
             <button class="bottom-nav-item" onclick="navigateTo('shopScreen')"><span>🛒</span><div>المتجر</div></button>
@@ -376,6 +372,7 @@
         </div>
     </div>
 
+    <!-- شاشة الأصدقاء والبحث التي تم إصلاحها وإتاحة إرسال الطلب بدقة -->
     <div id="friendsScreen" class="screen-page">
         <div class="top-nav">
             <h3 style="margin:0;color:#38bdf8;font-size:15px">👥 قائمة الأصدقاء والبحث</h3>
@@ -421,7 +418,6 @@
             <button class="nav-btn back" onclick="exitIsolatedChat()">⬅️ الرئيسية</button>
         </div>
         <div id="chatRoomsListArea" class="card" style="text-align:right">
-            <!-- النقطة 3: صف كلمة "إنشاء" يحتوي الآن على زر وحقل بحث الغرف بنفس الصف بدون تخريب أي شي -->
             <div style="display:flex;gap:4px;margin-bottom:10px;align-items:center">
                 <input type="text" id="isolatedRoomNameInput" class="input-box" placeholder="اسم الغرفة الجديدة" style="margin:0;flex:1">
                 <button class="action-btn btn-gold" style="width:auto;padding:0 10px;height:38px" onclick="createIsolatedRoom()">إنشاء ➕</button>
@@ -719,7 +715,7 @@
     let newRoomAvatarBase64='',newRoomBgBase64='',agentResidenceFrontBase64='',agentResidenceBackBase64='',agentNationalFrontBase64='',agentNationalBackBase64='';
     let currentReplyTarget=null,pendingSelectedGift=null,selectedTargetUserKey='all',selectedTargetUserName='الكل (عام)',totalWheelDegrees=0;
     let currentSelectedWhatsappPhone = '';
-    let globalRoomsList = []; // لتخزين الغرف وتفعيل البحث الخاص بالنقطة 3
+    let globalRoomsList = [];
 
     window.addEventListener('load',()=>{
         try{
@@ -1013,18 +1009,40 @@
         });
     }
     function clearAllNotifications(){if(!currentUserKey||!rtdb||!confirm("⚠️ حذف الإشعارات؟"))return;rtdb.ref(`notifications/${currentUserKey}`).remove().then(()=>{document.getElementById('notificationsContainer').innerHTML="لا توجد إشعارات جديدة";document.getElementById('mainNotificationBadge').style.display='none';alert("🗑️ تم الحذف.");});}
+    
+    // إصلاح دالة إرسال طلب الصداقة بالبحث الصحيح ودعم الـ ID (المشكلة الأولى)
     function sendFriendRequest(){
         let sId=document.getElementById('searchIdInput').value.trim(),res=document.getElementById('searchResultArea');
-        if(!sId)return res.innerText="⚠️ أدخل الـ ID";res.innerText="جاري الإرسال...";
+        if(!sId)return res.innerText="⚠️ أدخل الـ ID";
+        res.innerText="جاري البحث والإرسال...";
         rtdb.ref('users').once('value').then(snap=>{
-            let tk='';snap.forEach(c=>{if(c.val().customId===sId)tk=c.key;});
-            if(!tk)return res.innerText="❌ لم يتم العثور على مستخدم";if(tk===currentUserKey)return res.innerText="⚠️ لا يمكنك إضافة نفسك!";
-            rtdb.ref(`friends/${currentUserKey}/${tk}`).once('value').then(fs=>{
-                if(fs.exists())return res.innerText="⚠️ مضاف مسبقاً!";
-                rtdb.ref(`friend_requests/${tk}/${currentUserKey}`).set({name:userData.name,customId:userData.customId,timestamp:Date.now()}).then(()=>{document.getElementById('searchIdInput').value='';res.innerText="✅ تم إرسال الطلب بنجاح!";});
+            let tk='';
+            snap.forEach(c=>{
+                let u=c.val();
+                if(String(u.customId).trim()===String(sId).trim() || c.key===sId) {
+                    tk=c.key;
+                }
             });
+            if(!tk)return res.innerText="❌ لم يتم العثور على مستخدم بهذا الـ ID";
+            if(tk===currentUserKey)return res.innerText="⚠️ لا يمكنك إضافة نفسك!";
+            rtdb.ref(`friends/${currentUserKey}/${tk}`).once('value').then(fs=>{
+                if(fs.exists())return res.innerText="⚠️ هذا المستخدم مضاف لديك مسبقاً!";
+                rtdb.ref(`friend_requests/${tk}/${currentUserKey}`).set({
+                    name: userData.name || 'مستخدم',
+                    customId: userData.customId || '---',
+                    timestamp: Date.now()
+                }).then(()=>{
+                    document.getElementById('searchIdInput').value='';
+                    res.innerText="✅ تم إرسال طلب الصداقة بنجاح!";
+                }).catch(err=>{
+                    res.innerText="❌ فشل إرسال الطلب، حاول مجدداً.";
+                });
+            });
+        }).catch(err=>{
+            res.innerText="❌ خطأ في الاتصال بالشبكة.";
         });
     }
+
     function sendFriendRequestFromVisitedProfile(){
         if(!visitedProfileTargetKey||visitedProfileTargetKey===currentUserKey)return alert("⚠️ خطأ!");
         rtdb.ref(`friends/${currentUserKey}/${visitedProfileTargetKey}`).once('value').then(fs=>{
@@ -1201,8 +1219,11 @@
                 up[`users/${currentUserKey}/agentBag`]=userData.agentBag;
                 up[`users/${currentUserKey}/weeklyAgentPoints`]=(userData.weeklyAgentPoints||0)+pts;
                 rtdb.ref().update(up).then(()=>{
-                    // النقطة 2: تفعيل إرسال الإشعار عند شحن النقاط للمستخدم بنجاح
-                    rtdb.ref(`notifications/${tk}`).push({text:`تم شحن رصيدك بـ ${pts} نقطة بواسطة الوكيل ${userData.name}`,timestamp:Date.now()});
+                    // إصلاح إرسال الإشعار عند الشحن بنجاح (المشكلة الثانية)
+                    rtdb.ref(`notifications/${tk}`).push({
+                        text: `تم شحن رصيدك بـ ${pts} نقطة بواسطة الوكيل ${userData.name || 'الوكيل'}`,
+                        timestamp: Date.now()
+                    });
                     document.getElementById('agentTargetIdInput').value='';document.getElementById('agentPointsAmountInput').value='';
                     updateUI();alert(`✅ تم شحن ${pts} نقطة لمستخدم ID: ${tId} بنجاح من حقيبتك!`);
                 }).catch(()=>alert("❌ حدث خطأ أثناء الشحن."));
@@ -1220,8 +1241,11 @@
             rtdb.ref(`users/${tk}`).once('value').then(us=>{
                 let newPts = (us.val().points||0)+pts;
                 rtdb.ref(`users/${tk}`).update({points:newPts}).then(()=>{
-                    // النقطة 2: تفعيل الإشعار عند شحن الإدارة المباشر
-                    rtdb.ref(`notifications/${tk}`).push({text:`⚡ قامت الإدارة بشحن ${pts} نقطة برصيدك!`,timestamp:Date.now()});
+                    // إصلاح إرسال الإشعار عند شحن الإدارة المباشر (المشكلة الثانية)
+                    rtdb.ref(`notifications/${tk}`).push({
+                        text: `⚡ قامت الإدارة بشحن ${pts} نقطة برصيدك!`,
+                        timestamp: Date.now()
+                    });
                     document.getElementById('adminTargetIdInput').value='';document.getElementById('adminPointsAmountInput').value='';
                     alert(`✅ تم الشحن بـ ${pts} نقطة بنجاح.`);
                 });
@@ -1240,8 +1264,11 @@
                 let u=us.val();if(!u.isAgent)return alert('⚠️ هذا المستخدم ليس وكيلاً!');
                 let newBag = (u.agentBag||0)+pts;
                 rtdb.ref(`users/${tk}`).update({agentBag:newBag}).then(()=>{
-                    // النقطة 2: تفعيل الإشعار عند شحن حقيبة الوكيل
-                    rtdb.ref(`notifications/${tk}`).push({text:`⚡ شحنت الإدارة حقيبتك بـ ${pts} نقطة!`,timestamp:Date.now()});
+                    // إصلاح إرسال الإشعار عند شحن الحقيبة (المشكلة الثانية)
+                    rtdb.ref(`notifications/${tk}`).push({
+                        text: `⚡ شحنت الإدارة حقيبتك بـ ${pts} نقطة!`,
+                        timestamp: Date.now()
+                    });
                     document.getElementById('adminTargetIdInput').value='';document.getElementById('adminPointsAmountInput').value='';
                     alert(`✅ تم شحن حقيبة الوكيل بـ ${pts} نقطة بنجاح.`);
                 });
@@ -1401,7 +1428,6 @@
     function openIsolatedPublicRooms(){navigateTo('isolatedChatScreen');loadIsolatedRoomsSafe();}
     function exitIsolatedChat(){exitIsolatedActiveRoom();navigateTo('mainScreen');}
 
-    // النقطة 3: وظائف تحميل وعرض وبحث الغرف بدقة وبدون تخريب أي شيء
     function loadIsolatedRoomsSafe(){
         try{
             rtdb.ref('public_rooms').on('value',snap=>{
@@ -1509,7 +1535,6 @@
                     let bg=isMe?"background:#ef4444;color:#fff":"background:#10b981;color:#fff";
                     let q=msg.replyTo?`<div style="background:rgba(0,0,0,0.25);border-right:2px solid #38bdf8;padding:3px 6px;border-radius:4px;margin-bottom:4px;font-size:10px;color:#cbd5e1"><b style="color:#38bdf8">${msg.replyTo.senderName}:</b> ${msg.replyTo.text}</div>`:'';
                     
-                    // النقطة 4: تفعيل ميزة السحب والرد (Swipe to Reply) على الرسالة بشكل تفاعلي توب التوب
                     h+=`<div class="chat-msg-row" style="text-align:${isMe?'left':'right'};margin-bottom:5px" data-sender="${msg.senderName.replace(/'/g,"\\'")}" data-text="${(msg.text||'').replace(/'/g,"\\'")}">
                         <div style="font-size:9px;color:#38bdf8;cursor:pointer" onclick="openVisitedUserProfileByKeyDirect('${msg.sender}')"><b>${msg.senderName}</b> ${gft}</div>
                         <div class="msg-bubble-container chat-bubble-swipe" style="${bg}" ontouchstart="handleTouchStart(event)" ontouchmove="handleTouchMove(event)" ontouchend="handleTouchEnd(event, '${msg.senderName.replace(/'/g,"\\'")}', '${(msg.text||'').replace(/'/g,"\\'")}')">
@@ -1525,7 +1550,6 @@
         rtdb.ref(`room_occupants/${id}`).on('value',snap=>{document.getElementById('isolatedRoomCount').innerText=`👁️‍🗨️ ${Object.keys(snap.val()||{}).length}`;});
     }
 
-    // دوال تفعيل السحب للرد (Swipe to Reply) - النقطة 4
     let touchStartX = 0;
     let touchCurrentX = 0;
     function handleTouchStart(e) {
