@@ -522,7 +522,7 @@
             <h4 style="margin:0 0 4px 0;color:#c084fc;font-size:11px">🎁 هدايا الملف الشخصي</h4>
             <div id="visitedReceivedGiftsGrid" class="profile-gifts-grid"><div style="grid-column:span 3;text-align:center;color:#94a3b8;font-size:10px;padding:6px">لا توجد هدايا مستلمة</div></div>
         </div>
-        <div style="margin-top:8px;display:flex;gap:6px;justify-content:center">
+        <div style="margin-top:8px;display:flex;gap:6px;justify-center">
             <button id="visitedAddFriendBtn" class="action-btn btn-blue" style="padding:6px;font-size:11px;display:none" onclick="sendFriendRequestFromVisitedProfile()">إضافة صديق ➕</button>
             <button id="roomOwnerBanBtn" class="action-btn" style="background:#ef4444;color:#fff;padding:6px;font-size:11px;display:none" onclick="banUserFromRoom()">حظر من الغرفة 🚫</button>
         </div>
@@ -1083,7 +1083,7 @@
         saveToDB().then(()=>{base64Image='';updateUI();alert('✅ تم حفظ التعديلات بنجاح!');}).catch(()=>alert('❌ حدث خطأ، حاول مجدداً.'));
     }
 
-    // تعديل زر سحب الأرباح ليفحص حالة الإغلاق من الإدارة ونظام الـ 10 أيام بدقة
+    // زر فتح السحب: يفحص فوراً وبشكل حازم إذا كانت الإدارة أغلقت السحب ليرفض الفتح فوراً مع ظهور التنبيه المطلوب
     function openWithdrawModal(){
         if(globalAppSettings.withdrawLocked && currentUserKey !== 'msaftwtn_gmail_com') {
             return alert('⚠️ عذراً، خدمة سحب الأرباح مغلقة من قبل الإدارة حالياً.');
@@ -1106,7 +1106,9 @@
     function closeWithdrawModal(){document.getElementById('withdrawModal').style.display='none';}
     
     function submitWithdrawal(){
+        // فحص الإدارة أولاً لتجنب إكمال الطلب إذا اغلقته الإدارة أثناء تصفحه
         if(globalAppSettings.withdrawLocked && currentUserKey !== 'msaftwtn_gmail_com') {
+            closeWithdrawModal();
             return alert('⚠️ عذراً، خدمة سحب الأرباح مغلقة من قبل الإدارة حالياً.');
         }
 
