@@ -74,7 +74,8 @@
         .bottom-nav-item{display:flex;flex-direction:column;align-items:center;background:none;border:none;color:#94a3b8;font-size:10px;cursor:pointer;gap:2px}
         .bottom-nav-item.active{color:#c084fc}
         .bottom-nav-item span{font-size:16px}
-        .bottom-nav-crown{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#9333ea,#6b21a8);border:2px solid #c084fc;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;margin-top:-16px;box-shadow:0 4px 15px rgba(147,51,234,0.6);cursor:pointer}
+        /* تعديل النقطة 1: استبدال التاج بقرص ملون للأيقونة الخارجية للعجلة */
+        .bottom-nav-wheel-circle{width:42px;height:42px;border-radius:50%;background:conic-gradient(#ef4444 0deg 60deg,#3b82f6 60deg 120deg,#10b981 120deg 180deg,#9333ea 180deg 240deg,#8b5cf6 240deg 300deg,#ec4899 300deg 360deg);border:2px solid #c084fc;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;margin-top:-16px;box-shadow:0 4px 15px rgba(147,51,234,0.6);cursor:pointer}
         button.action-btn{width:100%;padding:10px;border:none;border-radius:9px;font-weight:bold;font-size:12px;cursor:pointer}
         .btn-gold{background:linear-gradient(135deg,#9333ea,#7e22ce);color:#fff}
         .btn-blue{background:linear-gradient(135deg,#0ea5e9,#0284c7);color:#fff}
@@ -131,7 +132,11 @@
         .gift-chat-img{width:65px;height:65px;object-fit:contain;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.6))}
         .admin-badge{background:linear-gradient(135deg,#ef4444,#b91c1c);color:#fff;padding:6px 14px;border-radius:10px;font-size:12px;font-weight:bold;border:1px solid #f87171;cursor:pointer;display:none;margin-bottom:8px;box-shadow:0 0 15px rgba(239,68,68,0.5)}
 
-        /* ===== ChatC4: Big Animated Gifts CSS ===== */
+        /* تنسيق حركة السحب والرد في الرسائل (النقطة 4) */
+        .chat-msg-row { position: relative; overflow: hidden; touch-action: pan-y; }
+        .chat-bubble-swipe { transition: transform 0.2s ease; }
+
+        /* CSS الهدايا المتحركة */
         #c4GiftOverlay {
           position: fixed;
           inset: 0;
@@ -256,7 +261,8 @@
         <div class="bottom-nav-bar">
             <button class="bottom-nav-item active" onclick="navigateTo('mainScreen')"><span>🏠</span><div>الرئيسية</div></button>
             <button class="bottom-nav-item" onclick="openIsolatedPublicRooms()"><span>💬</span><div>غرف الدردشة</div></button>
-            <div class="bottom-nav-crown" onclick="navigateTo('wheelScreen')" title="عجلة الحظ">👑</div>
+            <!-- النقطة 1: أيقونة عجلة الحظ الخارجية أصبحت قرصاً ملوناً بدلاً من التاج -->
+            <div class="bottom-nav-wheel-circle" onclick="navigateTo('wheelScreen')" title="عجلة الحظ">🎡</div>
             <button class="bottom-nav-item" onclick="navigateTo('friendsScreen')"><span>👥</span><div>الأصدقاء</div></button>
             <button class="bottom-nav-item" onclick="navigateTo('shopScreen')"><span>🛒</span><div>المتجر</div></button>
         </div>
@@ -415,9 +421,11 @@
             <button class="nav-btn back" onclick="exitIsolatedChat()">⬅️ الرئيسية</button>
         </div>
         <div id="chatRoomsListArea" class="card" style="text-align:right">
-            <div style="display:flex;gap:6px;margin-bottom:10px">
+            <!-- النقطة 3: صف كلمة "إنشاء" يحتوي الآن على زر وحقل بحث الغرف بنفس الصف بدون تخريب أي شي -->
+            <div style="display:flex;gap:4px;margin-bottom:10px;align-items:center">
                 <input type="text" id="isolatedRoomNameInput" class="input-box" placeholder="اسم الغرفة الجديدة" style="margin:0;flex:1">
-                <button class="action-btn btn-gold" style="width:auto;padding:0 12px" onclick="createIsolatedRoom()">إنشاء ➕</button>
+                <button class="action-btn btn-gold" style="width:auto;padding:0 10px;height:38px" onclick="createIsolatedRoom()">إنشاء ➕</button>
+                <input type="text" id="roomSearchInput" class="input-box" placeholder="بحث (اسم/ID)" style="margin:0;width:110px" oninput="filterIsolatedRooms()">
             </div>
             <hr style="border-color:rgba(255,255,255,0.1);margin:10px 0">
             <h4 style="margin:0 0 8px 0;color:#38bdf8;font-size:12px">🔥 الغرف الشائعة (الأكثر حضوراً)</h4>
@@ -554,7 +562,7 @@
             <h4 style="margin:0 0 4px 0;color:#c084fc;font-size:11px">🎁 هدايا الملف الشخصي</h4>
             <div id="visitedReceivedGiftsGrid" class="profile-gifts-grid"><div style="grid-column:span 3;text-align:center;color:#94a3b8;font-size:10px;padding:6px">لا توجد هدايا مستلمة</div></div>
         </div>
-        <div style="margin-top:8px;display:flex;gap:6px;justify-center">
+        <div style="margin-top:8px;display:flex;gap:6px;justify-content:center">
             <button id="visitedAddFriendBtn" class="action-btn btn-blue" style="padding:6px;font-size:11px;display:none" onclick="sendFriendRequestFromVisitedProfile()">إضافة صديق ➕</button>
             <button id="roomOwnerBanBtn" class="action-btn" style="background:#ef4444;color:#fff;padding:6px;font-size:11px;display:none" onclick="banUserFromRoom()">حظر من الغرفة 🚫</button>
         </div>
@@ -621,7 +629,6 @@
             <div class="gift-card-box" id="g13" onclick="highlightGift('سماعات دي جي 🎧',400,'https://cdn-icons-png.flaticon.com/512/3076/3076986.png','g13')"><img src="https://cdn-icons-png.flaticon.com/512/3076/3076986.png" class="gift-icon-full" alt="سماعات"><div class="gift-price-num">400 🪙</div></div>
             <div class="gift-card-box" id="g14" onclick="highlightGift('خاتم ألماس 💍',500,'https://cdn-icons-png.flaticon.com/512/931/931945.png','g14')"><img src="https://cdn-icons-png.flaticon.com/512/931/931945.png" class="gift-icon-full" alt="خاتم"><div class="gift-price-num">500 🪙</div></div>
             <div class="gift-card-box" id="g15" onclick="highlightGift('دب قطبي 🧸',800,'https://cdn-icons-png.flaticon.com/512/3022/3022361.png','g15')"><img src="https://cdn-icons-png.flaticon.com/512/3022/3022361.png" class="gift-icon-full exclusive-gift-animated" alt="دب"><div class="gift-price-num">800 🪙</div></div>
-            <!-- هدية القصر تم إضافتها بداخل القسم الفاخر (p3) -->
             <div class="gift-card-box" id="gPalace" onclick="highlightGift('القصر الملكي 🏰',5000,'palace','gPalace')"><span style="font-size:36px;display:block">🏰</span><div class="gift-price-num">5000 🪙</div></div>
         </div>
 
@@ -631,7 +638,6 @@
             <div class="gift-card-box" id="g18" onclick="highlightGift('فضاء حقيقي 🌌',1400,'https://cdn-icons-png.flaticon.com/512/3212/3212608.png','g18')"><img src="https://cdn-icons-png.flaticon.com/512/3212/3212608.png" class="gift-icon-full exclusive-gift-animated" alt="فضاء"><div class="gift-price-num">1400 🪙</div></div>
             <div class="gift-card-box" id="g19" onclick="highlightGift('ذئب بري 🐺',750,'https://cdn-icons-png.flaticon.com/512/616/616412.png','g19')"><img src="https://cdn-icons-png.flaticon.com/512/616/616412.png" class="gift-icon-full exclusive-gift-animated" alt="ذئب"><div class="gift-price-num">750 🪙</div></div>
             <div class="gift-card-box" id="g20" onclick="highlightGift('نرد الزار 🎲',150,'https://cdn-icons-png.flaticon.com/512/1041/1041888.png','g20')"><img src="https://cdn-icons-png.flaticon.com/512/1041/1041888.png" class="gift-icon-full exclusive-gift-animated" alt="نرد"><div class="gift-price-num">150 🪙</div></div>
-            <!-- هدية الطائرة تم إضافتها بداخل القسم الحصري (p4) -->
             <div class="gift-card-box" id="gPlane" onclick="highlightGift('طائرة نفاثة ✈️',4000,'plane','gPlane')"><span style="font-size:36px;display:block">✈️</span><div class="gift-price-num">4000 🪙</div></div>
         </div>
 
@@ -696,7 +702,6 @@
     </div>
 </div>
 
-<!-- ===== ChatC4: Overlay Element for Big Animated Gifts ===== -->
 <div id="c4GiftOverlay" aria-hidden="true">
   <div class="c4-gift-scene">
     <div class="c4-gift-glow"></div>
@@ -714,6 +719,7 @@
     let newRoomAvatarBase64='',newRoomBgBase64='',agentResidenceFrontBase64='',agentResidenceBackBase64='',agentNationalFrontBase64='',agentNationalBackBase64='';
     let currentReplyTarget=null,pendingSelectedGift=null,selectedTargetUserKey='all',selectedTargetUserName='الكل (عام)',totalWheelDegrees=0;
     let currentSelectedWhatsappPhone = '';
+    let globalRoomsList = []; // لتخزين الغرف وتفعيل البحث الخاص بالنقطة 3
 
     window.addEventListener('load',()=>{
         try{
@@ -1190,10 +1196,12 @@
                 let td=ts.val();
                 userData.agentBag-=pts;
                 let up={};
-                up[`users/${tk}/points`]=(td.points||0)+pts;
+                let newTargetPts = (td.points||0)+pts;
+                up[`users/${tk}/points`]=newTargetPts;
                 up[`users/${currentUserKey}/agentBag`]=userData.agentBag;
                 up[`users/${currentUserKey}/weeklyAgentPoints`]=(userData.weeklyAgentPoints||0)+pts;
                 rtdb.ref().update(up).then(()=>{
+                    // النقطة 2: تفعيل إرسال الإشعار عند شحن النقاط للمستخدم بنجاح
                     rtdb.ref(`notifications/${tk}`).push({text:`تم شحن رصيدك بـ ${pts} نقطة بواسطة الوكيل ${userData.name}`,timestamp:Date.now()});
                     document.getElementById('agentTargetIdInput').value='';document.getElementById('agentPointsAmountInput').value='';
                     updateUI();alert(`✅ تم شحن ${pts} نقطة لمستخدم ID: ${tId} بنجاح من حقيبتك!`);
@@ -1210,7 +1218,9 @@
             let tk='';snap.forEach(c=>{if(String(c.val().customId).trim()===String(tId).trim())tk=c.key;});
             if(!tk)return alert('❌ لم يتم العثور على المستخدم!');
             rtdb.ref(`users/${tk}`).once('value').then(us=>{
-                rtdb.ref(`users/${tk}`).update({points:(us.val().points||0)+pts}).then(()=>{
+                let newPts = (us.val().points||0)+pts;
+                rtdb.ref(`users/${tk}`).update({points:newPts}).then(()=>{
+                    // النقطة 2: تفعيل الإشعار عند شحن الإدارة المباشر
                     rtdb.ref(`notifications/${tk}`).push({text:`⚡ قامت الإدارة بشحن ${pts} نقطة برصيدك!`,timestamp:Date.now()});
                     document.getElementById('adminTargetIdInput').value='';document.getElementById('adminPointsAmountInput').value='';
                     alert(`✅ تم الشحن بـ ${pts} نقطة بنجاح.`);
@@ -1228,7 +1238,9 @@
             if(!tk)return alert('❌ لم يتم العثور على الوكيل!');
             rtdb.ref(`users/${tk}`).once('value').then(us=>{
                 let u=us.val();if(!u.isAgent)return alert('⚠️ هذا المستخدم ليس وكيلاً!');
-                rtdb.ref(`users/${tk}`).update({agentBag:(u.agentBag||0)+pts}).then(()=>{
+                let newBag = (u.agentBag||0)+pts;
+                rtdb.ref(`users/${tk}`).update({agentBag:newBag}).then(()=>{
+                    // النقطة 2: تفعيل الإشعار عند شحن حقيبة الوكيل
                     rtdb.ref(`notifications/${tk}`).push({text:`⚡ شحنت الإدارة حقيبتك بـ ${pts} نقطة!`,timestamp:Date.now()});
                     document.getElementById('adminTargetIdInput').value='';document.getElementById('adminPointsAmountInput').value='';
                     alert(`✅ تم شحن حقيبة الوكيل بـ ${pts} نقطة بنجاح.`);
@@ -1388,30 +1400,54 @@
     function approveAgent(uKey,rKey,wh){rtdb.ref(`users/${uKey}`).update({isAgent:true,whatsapp:wh||''}).then(()=>{rtdb.ref(`agent_requests/${rKey}`).remove().then(()=>alert("🌟 تم منح لقب الوكيل بنجاح!"));});}
     function openIsolatedPublicRooms(){navigateTo('isolatedChatScreen');loadIsolatedRoomsSafe();}
     function exitIsolatedChat(){exitIsolatedActiveRoom();navigateTo('mainScreen');}
+
+    // النقطة 3: وظائف تحميل وعرض وبحث الغرف بدقة وبدون تخريب أي شيء
     function loadIsolatedRoomsSafe(){
         try{
             rtdb.ref('public_rooms').on('value',snap=>{
-                let c=document.getElementById('isolatedRoomsContainer');if(!c)return;
-                if(!snap.exists()){c.innerHTML="<div style='grid-column:span 2;text-align:center;color:#94a3b8'>لا توجد غرف متاحة. أنشئ واحدة!</div>";return;}
+                if(!snap.exists()){
+                    globalRoomsList = [];
+                    renderRoomsList([]);
+                    return;
+                }
                 let list=[];snap.forEach(r=>list.push(r.val()));
                 rtdb.ref('room_occupants').once('value').then(os=>{
                     let od=os.val()||{};list.forEach(r=>{r.occupantsCount=Object.keys(od[r.id]||{}).length;});
-                    list.sort((a,b)=>b.occupantsCount-a.occupantsCount);let h='';
-                    list.forEach(r=>{
-                        let av=r.avatar?r.avatar:'https://via.placeholder.com/55';
-                        let del=(currentUserKey==='msaftwtn_gmail_com')?`<button class="action-btn" style="background:#ef4444;color:#fff;padding:4px;font-size:10px;margin-top:4px" onclick="adminDeleteSingleRoom('${r.id}','${r.name.replace(/'/g,"\\'")}')">🗑️ حذف</button>`:'';
-                        h+=`<div class="room-square-card">
-                            <img src="${av}" class="room-square-avatar" alt="غرفة">
-                            <div style="font-weight:bold;color:#c084fc;font-size:12px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%">${r.name}</div>
-                            <div style="font-size:10px;color:#10b981;margin-bottom:4px">🟢 الحضور: ${r.occupantsCount}</div>
-                            <button class="action-btn btn-green" style="padding:5px;font-size:11px" onclick="checkAndEnterRoom('${r.id}','${r.creatorKey}','${r.name}')">انضمام 🚪</button>${del}
-                        </div>`;
-                    });
-                    c.innerHTML=h;
+                    list.sort((a,b)=>b.occupantsCount-a.occupantsCount);
+                    globalRoomsList = list;
+                    renderRoomsList(globalRoomsList);
                 });
             });
         }catch(e){}
     }
+
+    function renderRoomsList(list){
+        let c=document.getElementById('isolatedRoomsContainer');if(!c)return;
+        if(list.length===0){c.innerHTML="<div style='grid-column:span 2;text-align:center;color:#94a3b8'>لا توجد غرف مطابقة للبحث أو متاحة.</div>";return;}
+        let h='';
+        list.forEach(r=>{
+            let av=r.avatar?r.avatar:'https://via.placeholder.com/55';
+            let del=(currentUserKey==='msaftwtn_gmail_com')?`<button class="action-btn" style="background:#ef4444;color:#fff;padding:4px;font-size:10px;margin-top:4px" onclick="adminDeleteSingleRoom('${r.id}','${r.name.replace(/'/g,"\\'")}')">🗑️ حذف</button>`:'';
+            h+=`<div class="room-square-card">
+                <img src="${av}" class="room-square-avatar" alt="غرفة">
+                <div style="font-weight:bold;color:#c084fc;font-size:12px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%">${r.name}</div>
+                <div style="font-size:10px;color:#10b981;margin-bottom:4px">🟢 الحضور: ${r.occupantsCount||0}</div>
+                <button class="action-btn btn-green" style="padding:5px;font-size:11px" onclick="checkAndEnterRoom('${r.id}','${r.creatorKey}','${r.name}')">انضمام 🚪</button>${del}
+            </div>`;
+        });
+        c.innerHTML=h;
+    }
+
+    function filterIsolatedRooms(){
+        let query = document.getElementById('roomSearchInput').value.trim().toLowerCase();
+        if(!query){
+            renderRoomsList(globalRoomsList);
+            return;
+        }
+        let filtered = globalRoomsList.filter(r => (r.name && r.name.toLowerCase().includes(query)) || (r.id && r.id.toLowerCase().includes(query)) || (r.creatorKey && r.creatorKey.toLowerCase().includes(query)));
+        renderRoomsList(filtered);
+    }
+
     function adminDeleteSingleRoom(id,name){
         if(currentUserKey!=='msaftwtn_gmail_com'||!confirm(`⚠️ حذف الغرفة (${name})؟`))return;
         rtdb.ref(`public_rooms/${id}`).remove();rtdb.ref(`room_messages/${id}`).remove();rtdb.ref(`room_occupants/${id}`).remove();rtdb.ref(`room_bans/${id}`).remove();
@@ -1468,13 +1504,19 @@
                     let isEmoji = (msg.giftIcon==='palace'||msg.giftIcon==='plane');
                     h+=`<div style="display:flex;justify-content:center;margin:8px 0"><div class="gift-chat-card"><div class="gift-chat-header"><span class="gift-chat-sender">🦋 ${msg.senderName}</span><span class="gift-chat-target">» ${msg.targetName}</span></div><div class="gift-chat-body"><span class="gift-chat-count">1 x</span>${isEmoji ? `<span style="font-size:55px">${giftDisplayImg}</span>` : giftDisplayImg}</div></div></div>`;
                 }else{
-                    let rep=`<button class="msg-action-btn" onclick="prepareReplyToMessage('${msg.senderName.replace(/'/g,"\\'")}')">🔃</button>`;
+                    let rep=`<button class="msg-action-btn" onclick="prepareReplyToMessage('${msg.senderName.replace(/'/g,"\\'")}', '${(msg.text||'').replace(/'/g,"\\'")}')">🔃</button>`;
                     let gft=!isMe?`<button class="msg-action-btn" style="margin-left:6px" onclick="openUnifiedGiftBox('${msg.sender}','${msg.senderName.replace(/'/g,"\\'")}')">🎁</button>`:'';
                     let bg=isMe?"background:#ef4444;color:#fff":"background:#10b981;color:#fff";
                     let q=msg.replyTo?`<div style="background:rgba(0,0,0,0.25);border-right:2px solid #38bdf8;padding:3px 6px;border-radius:4px;margin-bottom:4px;font-size:10px;color:#cbd5e1"><b style="color:#38bdf8">${msg.replyTo.senderName}:</b> ${msg.replyTo.text}</div>`:'';
-                    h+=`<div style="text-align:${isMe?'left':'right'};margin-bottom:5px">
+                    
+                    // النقطة 4: تفعيل ميزة السحب والرد (Swipe to Reply) على الرسالة بشكل تفاعلي توب التوب
+                    h+=`<div class="chat-msg-row" style="text-align:${isMe?'left':'right'};margin-bottom:5px" data-sender="${msg.senderName.replace(/'/g,"\\'")}" data-text="${(msg.text||'').replace(/'/g,"\\'")}">
                         <div style="font-size:9px;color:#38bdf8;cursor:pointer" onclick="openVisitedUserProfileByKeyDirect('${msg.sender}')"><b>${msg.senderName}</b> ${gft}</div>
-                        <div class="msg-bubble-container" style="${bg}"><div>${rep}</div><div style="flex:1;text-align:right">${q}<span>${msg.text}</span></div><div>${del}</div></div>
+                        <div class="msg-bubble-container chat-bubble-swipe" style="${bg}" ontouchstart="handleTouchStart(event)" ontouchmove="handleTouchMove(event)" ontouchend="handleTouchEnd(event, '${msg.senderName.replace(/'/g,"\\'")}', '${(msg.text||'').replace(/'/g,"\\'")}')">
+                            <div>${rep}</div>
+                            <div style="flex:1;text-align:right">${q}<span>${msg.text}</span></div>
+                            <div>${del}</div>
+                        </div>
                     </div>`;
                 }
             });
@@ -1482,6 +1524,32 @@
         });
         rtdb.ref(`room_occupants/${id}`).on('value',snap=>{document.getElementById('isolatedRoomCount').innerText=`👁️‍🗨️ ${Object.keys(snap.val()||{}).length}`;});
     }
+
+    // دوال تفعيل السحب للرد (Swipe to Reply) - النقطة 4
+    let touchStartX = 0;
+    let touchCurrentX = 0;
+    function handleTouchStart(e) {
+        touchStartX = e.touches[0].clientX;
+    }
+    function handleTouchMove(e) {
+        touchCurrentX = e.touches[0].clientX;
+        let diff = touchCurrentX - touchStartX;
+        if (Math.abs(diff) > 20) {
+            let bubble = e.currentTarget;
+            bubble.style.transform = `translateX(${diff > 0 ? Math.min(diff, 60) : Math.max(diff, -60)}px)`;
+        }
+    }
+    function handleTouchEnd(e, senderName, text) {
+        let bubble = e.currentTarget;
+        let diff = touchCurrentX - touchStartX;
+        bubble.style.transform = 'translateX(0px)';
+        if (Math.abs(diff) > 50) {
+            prepareReplyToMessage(senderName, text);
+        }
+        touchStartX = 0;
+        touchCurrentX = 0;
+    }
+
     function deleteRoomMessage(id,mk){rtdb.ref(`room_messages/${id}/${mk}`).remove();}
     function exitIsolatedActiveRoom(){
         cancelReplyMode();
@@ -1611,7 +1679,6 @@
         });
     }
 
-    /* ===== ChatC4: Big Animated Gifts Script ===== */
     (function () {
       const overlay = document.getElementById("c4GiftOverlay");
       const art = document.getElementById("c4GiftArt");
