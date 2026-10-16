@@ -567,7 +567,7 @@
             <button class="gift-tab-btn" id="tabG4" onclick="switchGiftPane('p4')">👑 حصرية (16-20)</button>
         </div>
         
-        <!-- القسم الأول: الهدايا 1 إلى 5 (مع رسومات واضحة تماماً) -->
+        <!-- القسم الأول: الهدايا 1 إلى 5 -->
         <div id="pane1" class="gift-pane-content active">
             <div class="gift-card-box" id="g1" onclick="highlightGift('علم العراق 🇮🇶',100,'https://upload.wikimedia.org/wikipedia/commons/f/f6/Flag_of_Iraq.svg','g1')"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Flag_of_Iraq.svg" class="gift-icon-full" alt="علم"><div class="gift-price-num">100 🪙</div></div>
             <div class="gift-card-box" id="g2" onclick="highlightGift('وردة حمراء 🌹',25,'https://cdn-icons-png.flaticon.com/512/766/766155.png','g2')"><img src="https://cdn-icons-png.flaticon.com/512/766/766155.png" class="gift-icon-full" alt="وردة"><div class="gift-price-num">25 🪙</div></div>
@@ -576,7 +576,7 @@
             <div class="gift-card-box" id="g5" onclick="highlightGift('دراجة هوائية 🚲',15,'https://cdn-icons-png.flaticon.com/512/2972/2972185.png','g5')"><img src="https://cdn-icons-png.flaticon.com/512/2972/2972185.png" class="gift-icon-full" alt="دراجة"><div class="gift-price-num">15 🪙</div></div>
         </div>
 
-        <!-- القسم الثاني: الهدايا 6 إلى 10 (رسومات واضحة تماماً) -->
+        <!-- القسم الثاني: الهدايا 6 إلى 10 -->
         <div id="pane2" class="gift-pane-content">
             <div class="gift-card-box" id="g6" onclick="highlightGift('قطة أليفة 🐱',15,'https://cdn-icons-png.flaticon.com/512/616/616430.png','g6')"><img src="https://cdn-icons-png.flaticon.com/512/616/616430.png" class="gift-icon-full" alt="قطة"><div class="gift-price-num">15 🪙</div></div>
             <div class="gift-card-box" id="g7" onclick="highlightGift('حلاوة ملونة 🍬',20,'https://cdn-icons-png.flaticon.com/512/3081/3081986.png','g7')"><img src="https://cdn-icons-png.flaticon.com/512/3081/3081986.png" class="gift-icon-full" alt="حلاوة"><div class="gift-price-num">20 🪙</div></div>
@@ -585,7 +585,7 @@
             <div class="gift-card-box" id="g10" onclick="highlightGift('تاج ملكي 👑',150,'https://cdn-icons-png.flaticon.com/512/3607/3607444.png','g10')"><img src="https://cdn-icons-png.flaticon.com/512/3607/3607444.png" class="gift-icon-full" alt="تاج"><div class="gift-price-num">150 🪙</div></div>
         </div>
 
-        <!-- القسم الثالث: الهدايا 11 إلى 15 (رسومات فاخرة وواضحة جداً) -->
+        <!-- القسم الثالث: الهدايا 11 إلى 15 -->
         <div id="pane3" class="gift-pane-content">
             <div class="gift-card-box" id="g11" onclick="highlightGift('قيثارة موسيقية 🎸',200,'https://cdn-icons-png.flaticon.com/512/3004/3004758.png','g11')"><img src="https://cdn-icons-png.flaticon.com/512/3004/3004758.png" class="gift-icon-full" alt="قيثارة"><div class="gift-price-num">200 🪙</div></div>
             <div class="gift-card-box" id="g12" onclick="highlightGift('كعكة عيد ميلاد 🎂',300,'https://cdn-icons-png.flaticon.com/512/3132/3132693.png','g12')"><img src="https://cdn-icons-png.flaticon.com/512/3132/3132693.png" class="gift-icon-full" alt="كعكة"><div class="gift-price-num">300 🪙</div></div>
@@ -594,7 +594,7 @@
             <div class="gift-card-box" id="g15" onclick="highlightGift('دب قطبي 🧸',800,'https://cdn-icons-png.flaticon.com/512/3022/3022361.png','g15')"><img src="https://cdn-icons-png.flaticon.com/512/3022/3022361.png" class="gift-icon-full exclusive-gift-animated" alt="دب"><div class="gift-price-num">800 🪙</div></div>
         </div>
 
-        <!-- القسم الرابع: الهدايا 16 إلى 20 الحصرية والملوكية (برسومات بارزة وواضحة جداً) -->
+        <!-- القسم الرابع: الهدايا 16 إلى 20 -->
         <div id="pane4" class="gift-pane-content">
             <div class="gift-card-box" id="g16" onclick="highlightGift('الأسد الملكي 🦁',1000,'https://cdn-icons-png.flaticon.com/512/616/616408.png','g16')"><img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="gift-icon-full exclusive-gift-animated" alt="أسد"><div class="gift-price-num">1000 🪙</div></div>
             <div class="gift-card-box" id="g17" onclick="highlightGift('سيارة فيراري 🏎️',1500,'https://cdn-icons-png.flaticon.com/512/741/741407.png','g17')"><img src="https://cdn-icons-png.flaticon.com/512/741/741407.png" class="gift-icon-full exclusive-gift-animated" alt="فيراري"><div class="gift-price-num">1500 🪙</div></div>
@@ -1086,10 +1086,20 @@
         if(n)userData.name=n;if(b!==undefined)userData.bio=b.substring(0,60);if(base64Image)userData.avatar=base64Image;
         saveToDB().then(()=>{base64Image='';updateUI();alert('✅ تم حفظ التعديلات بنجاح!');}).catch(()=>alert('❌ حدث خطأ، حاول مجدداً.'));
     }
-    function openWithdrawModal(){if(globalAppSettings.withdrawLocked&&currentUserKey!=='msaftwtn_gmail_com')return alert('⚠️ سحب الأرباح مقفل حالياً.');document.getElementById('withdrawModal').style.display='flex';}
+    
+    // التعديل المطلوب: فحص حالة إغلاق سحب الأرباح وإظهار رسالة الإدارة
+    function openWithdrawModal(){
+        if(globalAppSettings.withdrawLocked && currentUserKey !== 'msaftwtn_gmail_com' && currentEmail !== 'msaftwtn@gmail.com') {
+            return alert('⚠️ عذراً، ميزة سحب الأرباح مغلقة حالياً من قبل الإدارة.');
+        }
+        document.getElementById('withdrawModal').style.display='flex';
+    }
+    
     function closeWithdrawModal(){document.getElementById('withdrawModal').style.display='none';}
     function submitWithdrawal(){
-        if(globalAppSettings.withdrawLocked&&currentUserKey!=='msaftwtn_gmail_com')return alert('⚠️ سحب الأرباح مقفل.');
+        if(globalAppSettings.withdrawLocked && currentUserKey !== 'msaftwtn_gmail_com' && currentEmail !== 'msaftwtn@gmail.com') {
+            return alert('⚠️ عذراً، ميزة سحب الأرباح مغلقة حالياً من قبل الإدارة.');
+        }
         let m=document.getElementById('withdrawMethod').value,acc=document.getElementById('withdrawAccount').value.trim(),amt=parseFloat(document.getElementById('withdrawAmount').value);
         if(!acc||isNaN(amt))return alert('⚠️ أدخل الحساب والمبلغ بشكل صحيح!');if(amt<10)return alert('⚠️ الحد الأدنى للسحب 10$!');
         if((userData.points||0)<10000)return alert('❌ رصيدك الحالي من النقاط لا يكفي لتقديم طلب السحب!');
